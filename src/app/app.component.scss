@@ -1,0 +1,14 @@
+.nav{
+    background: rgb(196, 195, 195);
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    text-transform: uppercase;
+    &__link{
+        color: black;
+        margin: 0 10px;
+        outline: none;
+        text-decoration: none;
+        
+    }
+}

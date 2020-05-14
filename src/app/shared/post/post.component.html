@@ -1,0 +1,20 @@
+<div class="card" *ngFor="let item of posts, index as i">
+  <div class="card__body">
+    <p class="card__info">
+      {{ item?.postAuthorName }} / {{ item?.createdAt | date: "dd-MM-yyyy" }}
+    </p>
+    <div class="card__img">
+      <img
+        class="card__img__detail"
+        src="../../../assets/rectangle.png"
+        alt="dummy image"
+      />
+    </div>  <p class="card__title">{{ item?.postTitle }}</p>
+    <p class="card__text">{{ item?.postContent }}</p>
+    <div class="btn-container">
+      <button class="btn btn__comment" (click)="showPost(item?._id)">
+        Ver Post
+      </button>
+    </div>
+  </div>
+</div>

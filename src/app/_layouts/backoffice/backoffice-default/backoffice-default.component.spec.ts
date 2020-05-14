@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimpleLayoutComponent } from './simple-layout.component';
+import { BackofficeDefaultComponent } from './backoffice-default.component';
 
-describe('SimpleLayoutComponent', () => {
-  let component: SimpleLayoutComponent;
-  let fixture: ComponentFixture<SimpleLayoutComponent>;
+describe('BackofficeDefaultComponent', () => {
+  let component: BackofficeDefaultComponent;
+  let fixture: ComponentFixture<BackofficeDefaultComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SimpleLayoutComponent ]
+      declarations: [ BackofficeDefaultComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SimpleLayoutComponent);
+    fixture = TestBed.createComponent(BackofficeDefaultComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
