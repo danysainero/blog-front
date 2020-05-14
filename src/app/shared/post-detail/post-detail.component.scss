@@ -1,0 +1,56 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 15px 50px;
+    &__body {
+      padding: 15px;
+    }
+  
+    &__info {
+      font-size: .6rem;
+      text-align: right;
+    }
+    &__img {
+        display: flex;
+        justify-content: center;
+     
+         &__detail{
+           margin: 10px;
+           width: 60%;
+           border-radius: 10px;
+         }
+       }
+    &__title {
+      font-size: 1.3rem;
+      text-align: center;
+    }
+  
+    &__text {
+      color: rgb(124, 124, 124);
+      font-size: .8rem;
+      line-height: 1.5;
+      margin: 20px 0;
+      padding-left: 15px;
+    }
+  
+  }
+
+  .card-comment{
+    background: #b8b8b824;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 0 0 15px 15px;
+    text-align: right;
+
+    &__autor{
+        font-size: .6rem;
+        padding: 10px;
+    }
+    &__text{
+        color: rgb(58, 58, 58);
+        font-size: .8rem;
+        text-align: left;
+    }
+  }
+  
