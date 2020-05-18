@@ -1,0 +1,42 @@
+<div class="card" *ngFor="let item of posts; index as i" id="post{{ i }}">
+  <div class="card__body">
+    <p class="card__info">
+      {{ item?.postAuthorName }} / {{ item?.createdAt | date: "dd-MM-yyyy" }}
+    </p>
+    <div class="card__img">
+      <img
+        class="card__img__detail"
+        src="../../../assets/rectangle.png"
+        alt="dummy image"
+      />
+    </div>
+    <p class="card__title">{{ item?.postTitle }}</p>
+    <p class="card__text">{{ item?.postContent }}</p>
+
+    <div class="btn-container">
+      <div>
+        <button class="btn btn__delete" (click)="deletePost(item?._id)">
+          Delete Post
+        </button>
+      </div>
+      <div>
+        <button class="btn " (click)="showDetails(item?._id)">
+          Admin Comments
+        </button>
+      </div>
+      <div>
+        <button class="btn btn__modify" (click)="modifyPost($event, i)">
+          Modify Post
+        </button>
+
+        <button class="btn btn__save" (click)="SavePost($event, i, item?._id)" style="display: none;">
+          Save Changes
+        </button>
+
+        <button class="btn btn__cancel" (click)="cancelPostChanges($event, i)" style="display: none;">
+          Cancel Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

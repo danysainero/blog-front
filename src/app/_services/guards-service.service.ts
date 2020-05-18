@@ -8,7 +8,7 @@ export class GuardsService implements CanActivate {
 
   constructor(private router: Router) { }
 
-  canActivate(childRoute: ActivatedRouteSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = localStorage.getItem('token');
     if (!token) {
       console.log('No estás logueado');

@@ -9,15 +9,14 @@ export class PostComponent implements OnInit {
 
   showElement: number;
   index: number;
-  @Input() posts: any;
+
+  @Input() posts: [];
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   showPost(id) {
-  // ir a getpostbyid
   this.router.navigate( [`home/${id}`]);
   }
 }

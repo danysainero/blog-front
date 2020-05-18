@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { CommentsProxyService } from './comments-proxy.service';
 
-import { HomeProxyService } from './home-proxy.service';
 
-describe('HomeProxyService', () => {
-  let service: HomeProxyService;
+describe('CommentsProxyService', () => {
+  let service: CommentsProxyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HomeProxyService);
+    service = TestBed.inject(CommentsProxyService);
   });
 
   it('should be created', () => {

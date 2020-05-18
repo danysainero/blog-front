@@ -54,3 +54,11 @@
     }
   }
   
+  .empty{
+    background: #5830301f;
+    padding: 20px;
+    
+    & .card-comment__text{
+      text-align: center;
+  }
+  }

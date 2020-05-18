@@ -1,18 +1,18 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { BackofficeDefaultComponent } from './_layouts/backoffice/backoffice-default/backoffice-default.component';
-import { SimpleModule } from './_layouts/backoffice/backoffice.module';
+import { BackofficeModule } from './_layouts/backoffice/backoffice.module';
 import { AppHomeComponent } from './_layouts/home/app-home/app-home-component/app-home-component.component';
 import { AppHomeModule } from './_layouts/home/app-home/app-home.module';
+import { AuthInterceptorService } from './_services/auth-interceptor.service';
 
 
 const ROUTES: Routes =  [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: AppHomeComponent},
-  {path: 'backoffice', component: BackofficeDefaultComponent},
+  {path: 'backoffice', loadChildren: () => import('./_layouts/backoffice/backoffice.module').then(m => m.BackofficeModule)},
   {path: '**', redirectTo: 'home'}
 ];
 
@@ -25,10 +25,14 @@ const ROUTES: Routes =  [
     BrowserModule,
     AppHomeModule,
     HttpClientModule,
-    SimpleModule,
+    BackofficeModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
