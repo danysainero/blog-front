@@ -1,27 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { HomeProxyService } from './../home-proxy.service';
+import { PostsProxyService } from 'src/app/_services/posts-proxy.service';
 
 @Component({
-  selector: 'app-home-default',
+  selector: 'app-post-list-default',
   templateUrl: './home-default.component.html',
   styleUrls: ['./home-default.component.scss']
 })
-export class HomeDefaultComponent implements OnInit, OnDestroy {
+export class PostsListComponent implements OnInit {
 
-  posts: Observable<any>;
+  posts$: Observable<any>;
   postsSSubscription: Subscription;
 
-  constructor(private homeProxy: HomeProxyService) { }
+  constructor(private postsProxyService: PostsProxyService) { }
 
   ngOnInit(): void {
-    this.postsSSubscription = this.homeProxy.getAllPost().subscribe((res) => {
-      this.posts = res;
-    });
+    this.posts$ = this.postsProxyService.getAllPost();
   }
 
-  ngOnDestroy(): void{
-    this.postsSSubscription.unsubscribe();
-  }
 }

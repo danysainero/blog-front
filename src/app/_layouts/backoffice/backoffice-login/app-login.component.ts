@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/_services/auth-service.service';
 import { TokenDTO } from '../../../_dtos/auth-dto';
@@ -16,27 +17,37 @@ export class AppLoginComponent implements OnInit {
   subLogin: Subscription;
   subRegister: Subscription;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('admin2', [Validators.required]),
-      password: new FormControl('1234', [Validators.required])
-    });
-    this.registerForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
       pass: new FormControl('', [Validators.required])
     });
+
+    this.registerForm = new FormGroup({
+      userName: new FormControl('', [Validators.required]),
+      pass: new FormControl('', [Validators.required]),
+      role: new FormControl(1)
+    });
+  }
+
+  register(): void {
+    this.subRegister = this.authService.register(this.registerForm.value).subscribe();
   }
 
   login(): void {
-    this.subLogin = this.authService.login(this.loginForm.value).subscribe(
-      (tokenDTO: TokenDTO) => localStorage.setItem('token', tokenDTO.token),
+   this.subLogin = this.authService.login(this.loginForm.value).subscribe(
+      (tokenDTO: TokenDTO) => {
+        localStorage.setItem('token', tokenDTO.token);
+        this.router.navigate(['backoffice/app']);
+      },
       (error) => console.log(error)
     );
   }
 
-  register(): void {
-    this.subRegister = this.authService.register(this.registerForm.value).subscribe((res) => console.log(res));
-  }
+  /* ngOnDestroy(){
+    this.subLogin.unsubscribe();
+    this.subRegister.unsubscribe();
+  } */
 }

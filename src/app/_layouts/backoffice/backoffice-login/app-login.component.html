@@ -1,18 +1,45 @@
-<p>app-login works!</p>
+<div class="login">
+  <div class="formgroup">
+    <form [formGroup]="loginForm">
+      <div class="formcontrol">
+        <label for="userName">userName</label>
+        <input type="text" formControlName="userName" id="userName" />
+      </div>
 
-<div class="formgroup">
+      <div class="formcontrol">
+        <label for="pass">Password</label>
+        <input type="pass" formControlName="pass" id="pass" />
+      </div>
 
-<form [formGroup]="loginForm" style="border: 1px solid blue;">
-    Username: <input type="text" formControlName="username" /> Password:
-    <input type="password" formControlName="password" />
-    <button (click)="login()" [disabled]="!loginForm.valid">Login</button>
-  </form> 
-</div>
+      <div class="btn-container">
+        <button class="btn" (click)="login()" [disabled]="!loginForm.valid">
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
 
-  <div class="formgroup" style="border: 1px solid blue;">
-  <form [formGroup]="registerForm">
-    Username: <input type="text" formControlName="userName" /> Password:
-    <input type="password" formControlName="pass" />
-    <button (click)="register()" [disabled]="!registerForm.valid">New Account</button>
-  </form>
+  <div class="formgroup">
+    <form [formGroup]="registerForm">
+      <div class="formcontrol">
+        <label for="userName"> Username</label>
+        <input type="text" formControlName="userName" id="userName" />
+      </div>
+
+      <div class="formcontrol">
+        <label for="pass"> Password </label>
+        <input type="pass" formControlName="pass" id="pass" />
+      </div>
+
+      <div class="btn-container">
+        <button
+          class="btn"
+          (click)="register()"
+          [disabled]="!registerForm.valid"
+        >
+          New Account
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

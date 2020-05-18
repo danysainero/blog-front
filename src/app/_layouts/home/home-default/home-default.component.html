@@ -1,2 +1,2 @@
-
-<app-post [posts]= "posts"></app-post>
+<p>posts list</p>
+<app-post [posts]="( posts$ | async )"></app-post>

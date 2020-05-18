@@ -1,0 +1,82 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 15px 50px;
+    &__body {
+      border: solid rgba(114, 114, 114, 0.537) 1px;
+      border-radius: 4px;
+      padding: 15px;
+    }
+  
+    &__info {
+      font-size: 0.8rem;
+      text-align: right;
+    }
+    &__img {
+     display: flex;
+     justify-content: center;
+  
+      &__detail{
+        margin: 10px;
+        width: 60%;
+        border-radius: 10px;
+      }
+    }
+  
+    &__title {
+      font-size: 1.3rem;
+      margin: 10px 0;
+      text-align: center;
+    }
+  
+    &__text {
+      color: rgb(72, 72, 72);
+      font-family: roboto;
+      font-size: 0.6rem;
+      line-height: 1.2;
+      padding: 0 30px;
+      text-align: justify;
+    }
+  
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .btn__comment {
+      align-self: flex-end;
+      background: rgb(180, 180, 180);
+      border-radius: 2px;
+      font-size: 0.7rem;
+    }
+
+    .btn__delete {
+        align-self: flex-end;
+        background: rgb(255, 140, 140);
+        border-radius: 2px;
+        font-size: 0.7rem;
+      }
+
+      .btn__modify {
+        align-self: flex-end;
+        background: rgb(135, 169, 242);
+        border-radius: 2px;
+        font-size: 0.7rem;
+      }
+
+      .btn__save{
+        background: rgb(135, 242, 169);
+        align-self: flex-end;
+        border-radius: 2px;
+        font-size: 0.7rem;
+      }
+
+      .btn__cancel{
+        background: rgb(242, 199, 135);
+        align-self: flex-end;
+        border-radius: 2px;
+        font-size: 0.7rem;
+      }
+  }
+  

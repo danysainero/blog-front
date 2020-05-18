@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostDetailComponent } from 'src/app/shared/post-detail/post-detail.component';
 import { PostComponent } from 'src/app/shared/post/post.component';
-import { HomeDefaultComponent } from '../home-default/home-default.component';
+import { PostsListComponent } from '../home-default/home-default.component';
 import { AppHomeComponent } from './app-home-component/app-home-component.component';
 
 const ROUTES: Routes = [
@@ -14,7 +14,7 @@ const ROUTES: Routes = [
     children: [
       {
         path: '',
-        component: HomeDefaultComponent
+        component: PostsListComponent
       },
       {
         path: ':id',
@@ -25,17 +25,18 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppHomeComponent, HomeDefaultComponent, PostComponent, PostDetailComponent],
+  declarations: [AppHomeComponent, PostsListComponent,
+    PostComponent, PostDetailComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule.forChild(ROUTES)
   ],
   exports: [
-    HomeDefaultComponent,
+    PostsListComponent,
     AppHomeComponent,
+    PostDetailComponent,
     PostComponent,
-    PostDetailComponent
   ]
 })
 export class AppHomeModule { }
