@@ -1,18 +1,13 @@
-<p style="text-align: center;">lista de posts</p>
+<p style="text-align: center;">Lista de posts</p>
+<p style="text-align: center;">↓</p>
 
 <div class="card" *ngFor="let post of posts | async; index as i">
   <div class="card__body">
-    <p class="card__info">
-      Autor: {{ post?.postAuthorName }}
-    </p>
+    <p class="card__info">Autor: {{ post?.postAuthorName }} </p>
     <div class="card__img">
-      <img
-        class="card__img__detail"
-        src="../../../assets/rectangle.png"
-        alt="dummy image"
-      />
+      <img class="card__img__detail" src="../../../assets/rectangle.png" alt="dummy image"/>
     </div>
-    <p class="card__title"> Título: {{ post?.postTitle }}</p>
+    <p class="card__title">Título: {{ post?.postTitle }}</p>
     <p class="card__text">Contenido: {{ post?.postContent }}</p>
     <div class="btn-container">
       <button class="btn btn__comment" (click)="showPost(post?.postId)">

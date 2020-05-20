@@ -1,90 +1,52 @@
+<p style="text-align: center;">Lista privada de posts</p>
+<p style="text-align: center;">↓</p>
 <div class="card" *ngFor="let post of (posts | async), index as i" id="post{{ i }}">
   <div class="card__body">
-    <p class="card__info">
-      {{ post?.postAuthorName }} 
-    </p>
+    <p class="card__info"> {{ post?.postAuthorName }} </p>
     <div class="card__img">
-      <img
-        class="card__img__detail"
-        src="../../../assets/rectangle.png"
-        alt="dummy image"
-      />
+      <img class="card__img__detail" src="../../../assets/rectangle.png" alt="dummy image" />
     </div>
     <p class="card__title">{{ post?.postTitle }}</p>
     <p class="card__text">{{ post?.postContent }}</p>
-
     <div class="btn-container">
       <div>
-        <button class="btn btn__delete" (click)="deletePost(post?.postId)">
-          Delete Post
-        </button>
+        <button class="btn btn__delete" (click)="deletePost(post?.postId)"> Delete Post  </button>
       </div>
       <div>
-        <button class="btn " (click)="showDetails(post?.postId)">
-          Admin Comments
-        </button>
+        <button class="btn " (click)="showDetails(post?.postId)">Show Comments</button>
       </div>
       <div>
-        <button class="btn btn__modify" (click)="modifyPost($event, i)">
-          Modify Post
-        </button>
-
-        <button class="btn btn__save" (click)="savePost($event, i, post?.postId)" style="display: none;">
-          Save Changes
-        </button>
-
-        <button class="btn btn__cancel" (click)="cancelPostChanges($event, i)" style="display: none;">
-          Cancel Changes
-        </button>
+        <button class="btn btn__modify" (click)="modifyPost($event, i)"> Modify Post </button>
+        <button class="btn btn__save" (click)="savePost($event, i, post?.postId)" style="display: none;"> Save Changes </button>
+        <button class="btn btn__cancel" (click)="cancelPostChanges($event, i)" style="display: none;"> Cancel Changes </button>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <div class="newpost" *ngIf="displayNewPostForm" [@inOutAnimation]>
   <div class="formgroup">
     <form [formGroup]="newPostForm">
       <div class="formcontrol">
         <label for="postAuthorName">Autor</label>
-        <input
-          type="text"
-          formControlName="postAuthorName"
-          id="postAuthorName"
-        />
+        <input type="text" formControlName="postAuthorName" id="postAuthorName" />
       </div>
-
       <div class="formcontrol">
         <label for="postAuthorNickName">Nick</label>
-        <input
-          type="text"
-          formControlName="postAuthorNickName"
-          id="postAuthorNickName"
-        />
+        <input type="text" formControlName="postAuthorNickName" id="postAuthorNickName" />
       </div>
-
       <div class="formcontrol">
         <label for="postTitle">Título</label>
         <input type="text" formControlName="postTitle" id="postTitle" />
       </div>
-
       <div class="formcontrol">
         <label for="postContent">Contenido</label>
         <textarea class="content" formControlName="postContent" name="postContent" id="postContent"></textarea>
       </div>
-
       <div class="btn-container">
-        <button
-          class="btn"
-          (click)="createPost()"
-          [disabled]="!newPostForm.valid"
-        >
-          Create
-        </button>
+        <button class="btn" (click)="createPost(); displayNewPostForm = !displayNewPostForm" [disabled]="!newPostForm.valid" >Create</button>
       </div>
     </form>
   </div>
 </div>
-
 <button class="btn-new-post" (click)="displayNewPostForm = !displayNewPostForm">+</button>

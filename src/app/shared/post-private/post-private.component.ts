@@ -44,7 +44,6 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
   saveSub: Subscription;
   createPosstSub: Subscription;
 
-
   constructor(
     private router: Router,
     private postsService: PostsService,

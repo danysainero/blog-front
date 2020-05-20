@@ -1,59 +1,44 @@
+<p style="text-align: center;">Post Private Details</p>
+<p style="text-align: center;">↓</p>
 
 <div class="card">
   <div class="card__body">
+    <p class="card__info">Autor: {{ (post$ | async)?.postAuthorName }}</p>
+    <div class="card__img">
+      <img class="card__img__detail"  src="../../../assets/rectangle.png"  alt="dummy image" />
+    </div>
+    <p class="card__title">Título: {{ (post$ | async)?.postTitle }}</p>
+    <p class="card__text">Contenido: {{ (post$ | async)?.postContent }}</p>
     <div class="card-comment" *ngFor="let comment of (post$ | async)?.comments">
       <p class="card-comment__autor">
-        {{ comment.createdAt | date: "dd-MM-yyyy" }}
-        {{ comment.commentAuthorName }}
+        {{ comment?.createdAt | date: "dd-MM-yyyy" }}
+        {{ comment?.commentAuthorName }}
       </p>
-     
-      <p class="card-comment__text">{{ comment.commentContent }}</p>
-     
+      <p class="card-comment__text">{{ comment?.commentContent }}</p>
       <form [formGroup]="modifyCommentForm">
         <div class="formcontrol">
           <label for="commentContent">modificar comentario</label>
-          <input
-            type="text"
-            formControlName="commentContent"
-            id="commentContent"
-          />
-          <button (click)="modifyComment(comment._id)">Modificar</button>
+          <input type="text" formControlName="commentContent" id="commentContent"/>
+          <button (click)="modifyComment(comment?._id)">Modificar</button>
         </div>
-       
       </form>
-      <button (click)="deleteComment(comment._id)">Eliminar</button>
+      <button (click)="deleteComment(comment?._id)">Eliminar</button>
     </div>
-
-    <div
-      class="card-comment empty"
-      *ngIf="(post$ | async)?.comments?.length <= 0"
-    >
+    <div class="card-comment empty" *ngIf="(post$ | async)?.comments?.length <= 0">
       <p class="card-comment__text">No hay comentarios</p>
     </div>
   </div>
 </div>
-
 <div class="newpost" *ngIf="displayNewPostForm">
   <div class="formgroup">
     <form [formGroup]="newCommentForm">
       <div class="formcontrol">
         <label for="commentContent">Comentario</label>
-        <input
-          type="text"
-          formControlName="commentContent"
-          id="commentContent"
-        />
+        <input type="text" formControlName="commentContent" id="commentContent" />
       </div>
-
-      <button
-        class="btn"
-        (click)="createComment()"
-        [disabled]="!newCommentForm.valid"
-      >
-        Create
-      </button>
+      <button class="btn" (click)="createComment(); displayNewPostForm = !displayNewPostForm" [disabled]="!newCommentForm.valid"> Create </button>
     </form>
   </div>
 </div>
 
-<button class="btn-new-post" (click)=" displayNewPostForm = !displayNewPostForm">+</button>
+<button class="btn-new-post" (click)="displayNewPostForm = !displayNewPostForm">+</button>

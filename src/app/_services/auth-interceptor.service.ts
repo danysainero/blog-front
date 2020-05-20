@@ -8,7 +8,7 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.includes('/backoffice') && !req.url.includes('/backoffice/login')) {
+    if (!req.url.includes('/backoffice/login') || req.url.includes('/home')) {
       const token: string = localStorage.getItem('token');
       if (token) {
         const reqAuth = req.clone(

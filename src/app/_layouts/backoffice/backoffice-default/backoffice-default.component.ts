@@ -9,7 +9,6 @@ export class BackofficeDefaultComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

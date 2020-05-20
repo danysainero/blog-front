@@ -53,7 +53,6 @@ export class PostsService {
     );
   }
 
-
   private adaptDTOToModel(postDTO: PostDTO): Post {
     return {
       postId: postDTO._id,
