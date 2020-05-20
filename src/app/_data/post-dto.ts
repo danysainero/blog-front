@@ -1,15 +1,12 @@
 
   export  interface PostDTO {
-    comments: any[];
     _id: string;
+    comments: any[];
     postAuthorName: string;
     postAuthorNickName: string;
     postTitle: string;
     postContent: string;
     user: User;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
   }
 
   interface User {
@@ -17,7 +14,4 @@
     _id: string;
     userName: string;
     pass: string;
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
   }

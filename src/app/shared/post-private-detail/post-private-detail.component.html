@@ -1,4 +1,3 @@
-<p>post-private-detail works!</p>
 
 <div class="card">
   <div class="card__body">
@@ -27,7 +26,7 @@
 
     <div
       class="card-comment empty"
-      *ngIf="(post$ | async)?.comments.length <= 0"
+      *ngIf="(post$ | async)?.comments?.length <= 0"
     >
       <p class="card-comment__text">No hay comentarios</p>
     </div>
@@ -57,4 +56,4 @@
   </div>
 </div>
 
-<button class="btn-new-post" (click)="showNewCommentForm()">+</button>
+<button class="btn-new-post" (click)=" displayNewPostForm = !displayNewPostForm">+</button>

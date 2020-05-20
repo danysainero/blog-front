@@ -1,38 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { PostDTO } from 'src/app/_dtos/post-dto';
-import { CommentsProxyService } from 'src/app/_services/comments-proxy.service';
-import { PostsProxyService } from 'src/app/_services/posts-proxy.service';
+import { Post } from 'src/app/_data/post';
+import { PostsService } from 'src/app/_services/posts.service';
+import { CommentsService } from './../../_services/comments.service';
 
 @Component({
   selector: 'app-post-private-detail',
   templateUrl: './post-private-detail.component.html',
   styleUrls: ['./post-private-detail.component.scss']
 })
-export class PostPrivateDetailComponent implements OnInit {
+export class PostPrivateDetailComponent implements OnInit, OnDestroy {
 
   modifyCommentForm: FormGroup;
   newCommentForm: FormGroup;
-  post$: Observable<PostDTO>;
-  postUrlId: string;
-  displayNewPostForm: boolean;
+  post$: Observable<Post>;
+  displayNewPostForm = false;
   createCommentSub: Subscription;
   modifyCommentSub: Subscription;
   deleteCommentSub: Subscription;
 
   constructor(
-    private postsProxyService: PostsProxyService,
-    private commentsProxyService: CommentsProxyService,
+    private postsService: PostsService,
+    private commentsService: CommentsService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.displayNewPostForm = false;
-    this.postUrlId = this.route.snapshot.params.id;
-    this.getPostByID(this.postUrlId);
+    this.getPostByID();
+    this.initializeForms();
 
+  }
+
+  initializeForms() {
     this.newCommentForm = new FormGroup({
       commentContent: new FormControl('', [Validators.required])
     });
@@ -42,30 +43,28 @@ export class PostPrivateDetailComponent implements OnInit {
     });
   }
 
-  getPostByID(postId) {
-    this.post$ = this.postsProxyService.getPostsById(postId);
+  getPostByID() {
+    const postUrlId = this.route.snapshot.params.id;
+    this.post$ = this.postsService.getPostsById(postUrlId);
   }
 
   createComment() {
-   this.createCommentSub = this.commentsProxyService.addCommentById(this.postUrlId, this.newCommentForm.value).subscribe();
+    const postUrlId = this.route.snapshot.params.id;
+    this.createCommentSub = this.commentsService.createComment(postUrlId, this.newCommentForm.value).subscribe();
   }
 
-  modifyComment(commentId){
-    this.modifyCommentSub =   this.commentsProxyService.modifyComment(commentId, this.modifyCommentForm.value).subscribe();
+  modifyComment(commentId) {
+    this.modifyCommentSub = this.commentsService.modifyComment(commentId, this.modifyCommentForm.value).subscribe();
   }
 
   deleteComment(commentId) {
-   this.deleteCommentSub = this.commentsProxyService.deleteComment(commentId).subscribe();
+    this.deleteCommentSub = this.commentsService.deleteComment(commentId).subscribe();
   }
 
-  showNewCommentForm() {
-    this.displayNewPostForm = !this.displayNewPostForm;
+  ngOnDestroy() {
+    if (this.createCommentSub) { this.createCommentSub.unsubscribe(); }
+    if (this.modifyCommentSub) { this.modifyCommentSub.unsubscribe(); }
+    if (this.deleteCommentSub) { this.deleteCommentSub.unsubscribe(); }
   }
-
-  /* ngOnDestroy(){
-    this.createCommentSub.unsubscribe();
-    this.modifyCommentSub.unsubscribe();
-    this.deleteCommentSub.unsubscribe();
-  } */
 
 }

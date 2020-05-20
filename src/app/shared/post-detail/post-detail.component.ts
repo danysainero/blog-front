@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { PostDTO } from 'src/app/_dtos/post-dto';
-import { PostsProxyService } from './../../_services/posts-proxy.service';
+import { Post } from 'src/app/_data/post';
+import { PostsService } from 'src/app/_services/posts.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -12,11 +12,10 @@ import { PostsProxyService } from './../../_services/posts-proxy.service';
 
 export class PostDetailComponent implements OnInit {
 
-  post$: Observable<PostDTO>;
+  post$: Observable<Post>;
   postUrlId: string;
 
-
-  constructor(private postsProxyService: PostsProxyService, private route: ActivatedRoute) { }
+  constructor(private postsService: PostsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getPostByID();
@@ -24,7 +23,7 @@ export class PostDetailComponent implements OnInit {
 
   getPostByID() {
     this.postUrlId = this.route.snapshot.params.id;
-    this.post$ = this.postsProxyService.getPostsById(this.postUrlId);
+    this.post$ = this.postsService.getPostsById(this.postUrlId);
   }
 
 }

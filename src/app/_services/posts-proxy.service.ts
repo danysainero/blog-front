@@ -1,37 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { PostDTO } from '../_dtos/post-dto';
-
+import { PostDTO } from '../_data/post-dto';
 @Injectable({
   providedIn: 'root'
 })
 export class PostsProxyService {
-  response: any;
 
-  constructor(private http: HttpClient) { }
+  private url: string;
 
-  getAllPost(): Observable<PostDTO> {
-    return this.http.get<PostDTO>('http://localhost:3001/api/blog/posts');
+  constructor(private httpClient: HttpClient) {
+    this.url = 'http://localhost:3001/api/blog/posts';
   }
 
-  getPostsById(id): Observable<PostDTO> {
-    return this.http.get<PostDTO>(`http://localhost:3001/api/blog/posts/${id}`);
+
+  getAllPost(): Observable<PostDTO[]> {
+    return this.httpClient.get<PostDTO[]>(this.url);
+  }
+
+
+  getPostsById(postId: string): Observable<PostDTO> {
+    return this.httpClient.get<PostDTO>(`${this.url}/${postId}`);
   }
 
   createPost(post): Observable<PostDTO> {
-  return this.http.post<PostDTO>(`http://localhost:3001/api/blog/posts`, post);
-
-
-  }
-  modifyPost(id, modifiedPost): Observable<PostDTO>  {
-
-    return this.http.put<PostDTO>(`http://localhost:3001/api/blog/posts/${id}`, modifiedPost);
+    return this.httpClient.post<PostDTO>(this.url, post);
   }
 
-  deletePost(id): Observable<PostDTO> {
-    return this.http.delete<PostDTO>(`http://localhost:3001/api/blog/posts/${id}`);
+ modifyPost(postId: string, postToModify): Observable<PostDTO> {
+    postToModify._id = postId;
+    return this.httpClient.put<PostDTO>(`${this.url}/${postId}`, postToModify);
   }
 
-
+  deletePost(postId: string): Observable<PostDTO> {
+    return this.httpClient.delete<PostDTO>(`${this.url}/${postId}`);
+  }
 }

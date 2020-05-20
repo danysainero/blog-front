@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { Post } from 'src/app/_data/post';
+import { PostsService } from 'src/app/_services/posts.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -9,14 +12,20 @@ export class PostComponent implements OnInit {
 
   showElement: number;
   index: number;
+  posts: Observable<Post[]>;
 
-  @Input() posts: [];
 
-  constructor(private router: Router) { }
+  constructor(private postsService: PostsService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllPost();
+   }
+
+  getAllPost() {
+    this.posts = this.postsService.gelAllPosts();
+  }
 
   showPost(id) {
-  this.router.navigate( [`home/${id}`]);
+    this.router.navigate([`home/${id}`]);
   }
 }
