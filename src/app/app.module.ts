@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BackofficeModule } from './_layouts/backoffice/backoffice.module';
 import { AppHomeComponent } from './_layouts/home/app-home/app-home-component/app-home-component.component';
 import { AppHomeModule } from './_layouts/home/app-home/app-home.module';
@@ -19,7 +20,8 @@ const ROUTES: Routes =  [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
