@@ -1,90 +1,99 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { PostsProxyService } from './../../_services/posts-proxy.service';
-
+import { Observable, Subscription } from 'rxjs';
+import { Post } from 'src/app/_data/post';
+import { PostsService } from 'src/app/_services/posts.service';
+import { Helper } from './../../helpers/helper';
 @Component({
   selector: 'app-post-private',
   templateUrl: './post-private.component.html',
-  styleUrls: ['./post-private.component.scss']
+  styleUrls: ['./post-private.component.scss'],
+  animations: [
+    trigger(
+      'inOutAnimation',
+      [
+        transition(
+          ':enter',
+          [
+            style({ opacity: 0 }),
+            animate('1s linear',
+              style({ opacity: 1 }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ opacity: 1 }),
+            animate('0.5s linear',
+              style({ opacity: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
-export class PostPrivateComponent implements OnInit {
+export class PostPrivateComponent implements OnInit, OnDestroy {
 
+  newPostForm: FormGroup;
+  displayNewPostForm = false;
+  posts: Observable<Post[]>;
   modifyPostSub: Subscription;
-  title: string;
-  content: string;
+  deleteSub: Subscription;
+  saveSub: Subscription;
+  createPosstSub: Subscription;
 
-  @Input() posts: any;
+
   constructor(
-    private postsProxyService: PostsProxyService,
-    private router: Router) { }
+    private router: Router,
+    private postsService: PostsService,
+    private helper: Helper) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllPost();
 
-  SavePost(ev, i, postId) {
-    const modifiedPost = this.getPostData(i);
-    this.modifyPostSub = this.postsProxyService.modifyPost(postId, modifiedPost).subscribe();
-    this.makePostUnwritable(ev, i);
+    this.newPostForm = new FormGroup({
+      postAuthorName: new FormControl('', [Validators.required]),
+      postAuthorNickName: new FormControl('', [Validators.required]),
+      postTitle: new FormControl('', [Validators.required]),
+      postContent: new FormControl('', [Validators.required])
+    });
+  }
+
+  getAllPost() {
+    this.posts = this.postsService.gelAllPosts();
+  }
+  createPost() {
+    this.createPosstSub = this.postsService.createPost(this.newPostForm.value).subscribe();
+  }
+
+  savePost(ev, i, postId) {
+    const modifiedPost = this.helper.getPostData(i);
+    this.saveSub = this.postsService.modifyPost(postId, modifiedPost).subscribe();
+    this.helper.makePostUnwritable(ev, i);
   }
 
   modifyPost(ev, indexItem) {
-    this.makePostWritable(indexItem, ev);
+    this.helper.makePostWritable(indexItem, ev);
   }
 
   deletePost(id) {
-    this.postsProxyService.deletePost(id).subscribe();
+    this.deleteSub = this.postsService.deletePost(id).subscribe();
   }
 
-   showDetails(id){
-    this.router.navigate( [`backoffice/app/${id}`]);
+  showDetails(id) {
+    this.router.navigate([`backoffice/app/${id}`]);
   }
 
-  getPostData(indexItem) {
-    const titleEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__title`) as HTMLElement;
-    const textEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__text`) as HTMLElement;
-    const postTitle = titleEditable.innerHTML;
-    const postContent = textEditable.innerHTML;
-    return { postTitle, postContent };
-  }
-
-  makePostUnwritable(ev, indexItem) {
-    ev.target.style.display = 'none';
-    ev.path[1].children[2].style.display = 'none';
-    ev.path[1].children[0].style.display = 'inline-block';
-    const titleEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__title`) as HTMLElement;
-    const textEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__text`) as HTMLElement;
-    titleEditable.setAttribute('contentEditable', 'false');
-    titleEditable.style.color = '#484848';
-    textEditable.setAttribute('contentEditable', 'false');
-    textEditable.style.color = '#484848';
-  }
-  makePostWritable(indexItem, ev) {
-    ev.target.style.display = 'none';
-    ev.path[1].children[1].style.display = 'inline-block';
-    ev.path[1].children[2].style.display = 'inline-block';
-    const titleEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__title`) as HTMLElement;
-    const textEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__text`) as HTMLElement;
-    this.title = titleEditable.innerHTML;
-    this.content = textEditable.innerHTML;
-    titleEditable.setAttribute('contentEditable', 'true');
-    titleEditable.style.color = 'blue';
-    titleEditable.focus();
-    textEditable.setAttribute('contentEditable', 'true');
-    textEditable.style.color = 'blue';
-    textEditable.focus();
-  }
   cancelPostChanges(ev, indexItem) {
-    ev.target.style.display = 'none';
-    ev.path[1].children[1].style.display = 'none';
-    ev.path[1].children[0].style.display = 'inline-block';
-    const titleEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__title`) as HTMLElement;
-    const textEditable: HTMLElement = document.querySelector(`#post${indexItem} .card__text`) as HTMLElement;
-    titleEditable.innerHTML = this.title;
-    textEditable.innerHTML = this.content;
-    titleEditable.setAttribute('contentEditable', 'false');
-    titleEditable.style.color = '#484848';
-    textEditable.setAttribute('contentEditable', 'false');
-    textEditable.style.color = '#484848';
+    this.helper.cancelPostChanges(ev, indexItem);
+  }
+
+  ngOnDestroy() {
+    if (this.deleteSub) { this.deleteSub.unsubscribe(); }
+    if (this.createPosstSub) { this.createPosstSub.unsubscribe(); }
+    if (this.saveSub) { this.saveSub.unsubscribe(); }
   }
 
 }

@@ -11,11 +11,9 @@ export class GuardsService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const token = localStorage.getItem('token');
     if (!token) {
-      console.log('No estás logueado');
       this.router.navigate(['backoffice/login']);
       return false;
     }
-    console.log(' estás logueado');
     return true;
   }
 

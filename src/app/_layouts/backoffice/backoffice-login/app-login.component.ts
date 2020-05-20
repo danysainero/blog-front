@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/_services/auth-service.service';
-import { TokenDTO } from '../../../_dtos/auth-dto';
+import { TokenDTO } from '../../../_data/auth-dto';
 
 @Component({
   selector: 'app-app-login',
   templateUrl: './app-login.component.html',
   styleUrls: ['./app-login.component.scss']
 })
-export class AppLoginComponent implements OnInit {
+export class AppLoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
@@ -20,6 +20,10 @@ export class AppLoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.initializeForms();
+  }
+
+  initializeForms(): void  {
     this.loginForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
       pass: new FormControl('', [Validators.required])
@@ -37,7 +41,7 @@ export class AppLoginComponent implements OnInit {
   }
 
   login(): void {
-   this.subLogin = this.authService.login(this.loginForm.value).subscribe(
+    this.subLogin = this.authService.login(this.loginForm.value).subscribe(
       (tokenDTO: TokenDTO) => {
         localStorage.setItem('token', tokenDTO.token);
         this.router.navigate(['backoffice/app']);
@@ -46,8 +50,8 @@ export class AppLoginComponent implements OnInit {
     );
   }
 
-  /* ngOnDestroy(){
-    this.subLogin.unsubscribe();
-    this.subRegister.unsubscribe();
-  } */
+  ngOnDestroy(): void  {
+    if (this.subLogin) { this.subLogin.unsubscribe(); }
+    if (this.subRegister) { this.subRegister.unsubscribe(); }
+  }
 }

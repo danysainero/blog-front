@@ -8,7 +8,6 @@ import { PostPrivateDetailComponent } from 'src/app/shared/post-private-detail/p
 import { AppLoginComponent } from 'src/app/_layouts/backoffice/backoffice-login/app-login.component';
 import { GuardsService } from 'src/app/_services/guards-service.service';
 import { PostPrivateComponent } from './../../shared/post-private/post-private.component';
-import { BackofficeAppComponent } from './backoffice-app/backoffice-app.component';
 import { BackofficeDefaultComponent } from './backoffice-default/backoffice-default.component';
 
 const ROUTES: Routes = [
@@ -18,11 +17,11 @@ const ROUTES: Routes = [
     children: [
       {
         path: 'app',
-        component: BackofficeAppComponent, canActivate: [GuardsService]
+        component: PostPrivateComponent, canActivate: [GuardsService]
       },
       {
         path: 'app/:id',
-        component: PostPrivateDetailComponent
+        component: PostPrivateDetailComponent, canActivate: [GuardsService]
       }, {
         path: 'login',
         component: AppLoginComponent
@@ -34,7 +33,7 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [BackofficeAppComponent,
+  declarations: [
     AppLoginComponent,
     BackofficeDefaultComponent,
     PostPrivateDetailComponent,
@@ -46,7 +45,7 @@ const ROUTES: Routes = [
     HttpClientModule,
     RouterModule.forChild(ROUTES)
   ],
-  exports: [BackofficeAppComponent,
+  exports: [
     AppLoginComponent,
     PostPrivateComponent,
     PostPrivateDetailComponent,
