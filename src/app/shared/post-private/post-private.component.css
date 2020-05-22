@@ -1,0 +1,155 @@
+.btn-new-post {
+  background: #9f9f9f;
+  border: groove 2px #898585;
+  border-radius: 50%;
+  bottom: 5%;
+  height: 30px;
+  position: fixed;
+  right: 1%;
+  width: 30px;
+}
+
+.card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 20px auto;
+  padding: 15px 50px;
+}
+
+.card__body {
+  border: solid rgba(114, 114, 114, 0.537) 1px;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.card__info {
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.card__img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card__img__detail {
+  margin: 10px;
+  width: 60%;
+  border-radius: 10px;
+}
+
+.card__title, .card__text {
+  color: #484848;
+  font-family: roboto;
+  font-size: 1.3rem;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.card__text {
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.card .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 10px;
+}
+
+.card .btn {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  border-radius: 2px;
+  font-size: 0.7rem;
+}
+
+.card .btn__comment {
+  background: #b4b4b4;
+}
+
+.card .btn__delete {
+  background: #ff8c8c;
+}
+
+.card .btn__modify {
+  background: #87a9f2;
+}
+
+.card .btn__save {
+  background: #87f2a9;
+}
+
+.card .btn__cancel {
+  background: #f2c787;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  border-radius: 2px;
+  font-size: 0.7rem;
+}
+
+.newpost {
+  border: groove 2px #898585;
+  background: #dfdddd;
+  border-radius: 4px;
+  position: fixed;
+  padding: 5px 15px;
+  right: 2%;
+  bottom: 7%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.formcontrol {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.formcontrol label {
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.formcontrol input,
+.formcontrol .content {
+  font-size: 0.7rem;
+  border: none;
+  border-radius: 2px;
+  height: 20px;
+  margin-bottom: 2px;
+  padding: 3px;
+}
+
+.btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 10px;
+}
+/*# sourceMappingURL=post-private.component.css.map */

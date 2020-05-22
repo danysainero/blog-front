@@ -35,8 +35,9 @@
       <div class="formcontrol">
         <label for="commentContent">Comentario</label>
         <input type="text" formControlName="commentContent" id="commentContent" />
+        <span *ngIf="newPostError" style="color: crimson;">{{newPostError}}</span>
       </div>
-      <button class="btn" (click)="createComment(); displayNewPostForm = !displayNewPostForm" [disabled]="!newCommentForm.valid"> Create </button>
+      <button class="btn" (click)="createComment()" [disabled]="!newCommentForm.valid"> Create </button>
     </form>
   </div>
 </div>

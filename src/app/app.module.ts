@@ -9,12 +9,11 @@ import { AppHomeComponent } from './_layouts/home/app-home/app-home-component/ap
 import { AppHomeModule } from './_layouts/home/app-home/app-home.module';
 import { AuthInterceptorService } from './_services/auth-interceptor.service';
 
-
-const ROUTES: Routes =  [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: AppHomeComponent},
-  {path: 'backoffice', loadChildren: () => import('./_layouts/backoffice/backoffice.module').then(m => m.BackofficeModule)},
-  {path: '**', redirectTo: 'home'}
+const ROUTES: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: AppHomeComponent},
+  { path: 'backoffice', loadChildren: () => import('./_layouts/backoffice/backoffice.module').then(m => m.BackofficeModule) },
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
