@@ -21,6 +21,7 @@ export class PostPrivateDetailComponent implements OnInit, OnDestroy {
   createCommentSub: Subscription;
   modifyCommentSub: Subscription;
   deleteCommentSub: Subscription;
+  newPostError: object;
 
   constructor(
     private postsService: PostsService,
@@ -50,7 +51,13 @@ export class PostPrivateDetailComponent implements OnInit, OnDestroy {
 
   createComment() {
     const postUrlId = this.route.snapshot.params.id;
-    this.createCommentSub = this.commentsService.createComment(postUrlId, this.newCommentForm.value).subscribe();
+    this.createCommentSub = this.commentsService.createComment(postUrlId, this.newCommentForm.value).subscribe(() => {
+      this.displayNewPostForm = !this.displayNewPostForm;
+    },
+      (error) => {
+        this.newPostError = error.error.message;
+      }
+    );
   }
 
   modifyComment(commentId) {

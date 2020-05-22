@@ -13,11 +13,9 @@ export class PostsProxyService {
     this.url = 'http://localhost:3001/api/blog/posts';
   }
 
-
   getAllPost(): Observable<PostDTO[]> {
     return this.httpClient.get<PostDTO[]>(this.url);
   }
-
 
   getPostsById(postId: string): Observable<PostDTO> {
     return this.httpClient.get<PostDTO>(`${this.url}/${postId}`);
@@ -27,7 +25,7 @@ export class PostsProxyService {
     return this.httpClient.post<PostDTO>(this.url, post);
   }
 
- modifyPost(postId: string, postToModify): Observable<PostDTO> {
+  modifyPost(postId: string, postToModify): Observable<PostDTO> {
     postToModify._id = postId;
     return this.httpClient.put<PostDTO>(`${this.url}/${postId}`, postToModify);
   }

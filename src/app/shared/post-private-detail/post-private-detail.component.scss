@@ -7,6 +7,32 @@
   &__body {
     padding: 15px;
   }
+  &__info {
+    font-size: .6rem;
+    text-align: right;
+  }
+  &__img {
+      display: flex;
+      justify-content: center;
+   
+       &__detail{
+         margin: 10px;
+         width: 60%;
+         border-radius: 10px;
+       }
+     }
+  &__title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  &__text {
+    color: rgb(124, 124, 124);
+    font-size: .8rem;
+    line-height: 1.5;
+    margin: 20px 0;
+    padding-left: 15px;
+  }
 }
 
 .card-comment {

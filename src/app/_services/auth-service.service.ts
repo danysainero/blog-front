@@ -25,4 +25,9 @@ export class AuthService {
   register(formBody): Observable<any> {
     return this.httpClient.post('http://localhost:3001/api/users/', formBody);
   }
+
+  checkUserName(userName){
+    return this.httpClient.get('http://localhost:3001/api/users/', userName);
+
+  }
 }

@@ -8,18 +8,22 @@ import { CommentDTO } from './../_data/comment-dto';
 })
 export class CommentsProxyService {
 
-  constructor(private http: HttpClient) { }
+  private url: string;
 
-  createComment(postId, comment): Observable<CommentDTO>{
-    return this.http.post<CommentDTO>(`http://localhost:3001/api/blog/comments/${postId}`, comment);
+  constructor(private httpClient: HttpClient) {
+    this.url = 'http://localhost:3001/api/blog/comments';
   }
 
-  modifyComment(commentId, comment): Observable<CommentDTO>{
-    return this.http.put<CommentDTO>(`http://localhost:3001/api/blog/comments/${commentId}`, comment);
+  createComment(postId, comment): Observable<CommentDTO> {
+    return this.httpClient.post<CommentDTO>(`${this.url}/${postId}`, comment);
+  }
+
+  modifyComment(commentId, comment): Observable<CommentDTO> {
+    return this.httpClient.put<CommentDTO>(`${this.url}/${commentId}`, comment);
   }
 
   deleteComment(commentId): Observable<CommentDTO> {
-    return this.http.delete<CommentDTO>(`http://localhost:3001/api/blog/comments/${commentId}`);
+    return this.httpClient.delete<CommentDTO>(`${this.url}/${commentId}`);
   }
 
 }

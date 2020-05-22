@@ -24,6 +24,11 @@
       <div class="formcontrol">
         <label for="userName"> Username</label>
         <input type="text" formControlName="userName" id="userName" />
+          <div *ngIf="registerForm.get('userName').dirty">
+          <span *ngIf="registerForm.get('userName').hasError('userTaken')" style="color: crimson;">
+              Username is taken
+          </span>
+      </div>
       </div>
 
       <div class="formcontrol">

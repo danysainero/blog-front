@@ -1,3 +1,5 @@
+import { User } from './user-dto';
+
 export interface Comment {
     commentId?: string;
     commentContent?: string;
@@ -7,8 +9,4 @@ export interface Comment {
     user?: User;
 }
 
-interface User {
-    role: number;
-    _id: string;
-    userName: string;
-  }
+

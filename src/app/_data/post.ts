@@ -1,3 +1,5 @@
+import { User } from './user-dto';
+
 export interface Post {
     postId?: string;
     postAuthorName?: string;
@@ -5,5 +7,5 @@ export interface Post {
     postTitle?: string;
     postContent?: string;
     comments?: any[];
-    user?: string;
+    user?: User;
 }

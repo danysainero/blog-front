@@ -14,7 +14,7 @@ const ROUTES: Routes = [
   {
     path: 'backoffice',
     component: BackofficeDefaultComponent,
-    children: [
+     children: [
       {
         path: 'app',
         component: PostPrivateComponent, canActivate: [GuardsService]
@@ -43,7 +43,7 @@ const ROUTES: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forChild(ROUTES)
+     RouterModule.forChild(ROUTES)
   ],
   exports: [
     AppLoginComponent,

@@ -8,12 +8,10 @@ import { PostsService } from 'src/app/_services/posts.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
+
 export class PostComponent implements OnInit {
 
-  showElement: number;
-  index: number;
   posts: Observable<Post[]>;
-
 
   constructor(private postsService: PostsService, private router: Router) { }
 

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CommonValidator } from 'src/app/helpers/common-validator';
 import { AuthService } from 'src/app/_services/auth-service.service';
 import { TokenDTO } from '../../../_data/auth-dto';
 
@@ -30,7 +31,7 @@ export class AppLoginComponent implements OnInit, OnDestroy {
     });
 
     this.registerForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required], [CommonValidator.userTaken]),
       pass: new FormControl('', [Validators.required]),
       role: new FormControl(1)
     });

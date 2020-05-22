@@ -1,53 +1,43 @@
 .card {
+  border: solid rgba(114, 114, 114, 0.537) 1px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
-  margin: 20px auto;
+  margin: 20px 40px;
   padding: 15px 50px;
-  &__body {
-    border: solid rgba(114, 114, 114, 0.537) 1px;
-    border-radius: 4px;
-    padding: 15px;
-  }
 
   &__info {
-    font-size: 0.8rem;
     text-align: right;
   }
-  &__img {
-   display: flex;
-   justify-content: center;
 
-    &__detail{
+  &__img {
+    display: flex;
+    justify-content: center;
+
+    &__detail {
+      border-radius: 10px;
       margin: 10px;
       width: 60%;
-      border-radius: 10px;
     }
   }
 
-  &__title {
+  &__title,
+  &__text {
+    color: rgb(72, 72, 72);
+    font-family: roboto;
     font-size: 1.3rem;
     margin: 10px 0;
     text-align: center;
   }
-
+  
   &__text {
-    color: rgb(72, 72, 72);
-    font-family: roboto;
-    font-size: 0.6rem;
-    line-height: 1.2;
-    padding: 0 30px;
-    text-align: justify;
+    font-size: 1rem;
+    text-align: left;
   }
 
   .btn-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
-  }
-  .btn__comment {
-    align-self: flex-end;
-    background: rgb(180, 180, 180);
-    border-radius: 2px;
-    font-size: 0.7rem;
   }
 }

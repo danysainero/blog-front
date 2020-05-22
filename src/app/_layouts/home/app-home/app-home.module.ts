@@ -4,13 +4,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostDetailComponent } from 'src/app/shared/post-detail/post-detail.component';
 import { PostComponent } from 'src/app/shared/post/post.component';
+import { AppLayoutComponent } from '../../app-layout/app-layout.component';
 import { AppHomeComponent } from './app-home-component/app-home-component.component';
 
 const ROUTES: Routes = [
   {
     path: 'home',
     component: AppHomeComponent,
-    children: [
+     children: [
       {
         path: '',
         component: PostComponent
@@ -27,7 +28,8 @@ const ROUTES: Routes = [
   declarations: [
     AppHomeComponent,
     PostComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    AppLayoutComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ const ROUTES: Routes = [
     AppHomeComponent,
     PostDetailComponent,
     PostComponent,
+    AppLayoutComponent
   ]
 })
 export class AppHomeModule { }

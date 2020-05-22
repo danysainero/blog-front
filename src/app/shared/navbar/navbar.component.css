@@ -1,0 +1,35 @@
+.nav {
+  background: #c4c3c3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.nav__link {
+  color: black;
+  margin: 0 10px;
+  outline: none;
+  text-decoration: none;
+}
+
+.nav .btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+}
+
+.nav .btn-container .btn {
+  background: rgba(255, 0, 0, 0.18);
+  border: none;
+  border-radius: 4px;
+}
+/*# sourceMappingURL=navbar.component.css.map */

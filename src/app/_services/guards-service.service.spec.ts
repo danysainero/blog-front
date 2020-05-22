@@ -1,16 +1,7 @@
-import { TestBed } from '@angular/core/testing';
 
-import { GuardsServiceService } from './guards-service.service';
+describe('Guards canActivate', () => {
 
-describe('GuardsServiceService', () => {
-  let service: GuardsServiceService;
+  it('should return true if user is logged', () => {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(GuardsServiceService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
   });
 });
