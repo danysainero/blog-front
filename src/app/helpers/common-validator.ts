@@ -19,3 +19,23 @@ export class CommonValidator {
     }
 
 }
+
+
+
+/*     static checkNewUser(proxy: AuthProxyService) {
+        return (control: FormControl) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    let userExist;
+                    proxy.checkUserName(control.value).subscribe(
+                        res => { userExist = res; }
+                    );
+                    if (userExist) {
+                        resolve({ checkNewUser: true });
+                    } else {
+                        resolve(null);
+                    }
+                }, 2000);
+            });
+        };
+    } */

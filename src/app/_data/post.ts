@@ -1,4 +1,4 @@
-import { User } from './user-dto';
+import { User } from 'src/app/_data/user';
 
 export interface Post {
     postId?: string;

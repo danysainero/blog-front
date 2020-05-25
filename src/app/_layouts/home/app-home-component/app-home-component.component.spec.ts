@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppHomeComponent } from './app-home-component.component';
 
 
@@ -8,6 +10,7 @@ describe('AppHomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [ AppHomeComponent ]
     })
     .compileComponents();
@@ -19,7 +22,7 @@ describe('AppHomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create app-home layout', () => {
     expect(component).toBeTruthy();
   });
 });

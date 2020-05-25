@@ -1,12 +1,20 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { AuthProxyService } from './auth-proxy.service';
+import { AuthProxyService } from 'src/app/_services/proxys/auth-proxy.service';
 
 
 describe('AuthProxyService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let proxy: AuthProxyService;
 
-  it('should be created', () => {
-    const service: AuthProxyService = TestBed.inject(AuthProxyService);
-    expect(service).toBeTruthy();
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    });
+    proxy = TestBed.inject(AuthProxyService);
+  });
+
+  it('should auth proxy service be created', () => {
+    expect(proxy).toBeTruthy();
   });
 });
