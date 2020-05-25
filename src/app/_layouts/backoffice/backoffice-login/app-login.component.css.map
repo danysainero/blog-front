@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAiDI",
-    "sources": [
-        "app-login.component.scss"
-    ],
-    "names": [],
-    "file": "app-login.component.css"
-}

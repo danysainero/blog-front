@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Post } from 'src/app/_data/post';
-import { PostsService } from 'src/app/_services/posts.service';
+import { PostsService } from 'src/app/_services/bussiness/posts.service';
 
 @Component({
   selector: 'app-post-detail',

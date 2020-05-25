@@ -1,0 +1,55 @@
+<p style="text-align: center;">SIGN IN & SIGN UP</p>
+<div class="login">
+  <div class="formgroup" *ngIf="showLogin">
+    <form [formGroup]="loginForm">
+      <h1>SIGN IN</h1>
+      <div class="formcontrol">
+        <label for="userName">Username</label>
+        <input type="text" formControlName="userName" id="userName" />
+      </div>
+
+      <div class="formcontrol">
+        <label for="pass">Password</label>
+        <input type="pass" formControlName="pass" id="pass" />
+      </div>
+
+      <div class="btn-container">
+        <button class="btn" (click)="login()" [disabled]="!loginForm.valid">
+          Login
+        </button>
+      </div>
+      <span (click)="this.showLogin = !this.showLogin" class="link">No estás registrado? Regístrate</span>
+    </form>
+  </div>
+
+  <div class="formgroup" *ngIf="!showLogin">
+    <form [formGroup]="registerForm">
+      <h1>SIGN UP</h1>
+      <div class="formcontrol">
+        <label for="userName"> Username</label>
+        <input type="text" formControlName="userName" id="userName" />
+          <div *ngIf="registerForm.get('userName').dirty">
+          <span *ngIf="registerForm.get('userName').hasError('userTaken')" style="color: crimson;">
+              Username is taken
+          </span>
+      </div>
+      </div>
+
+      <div class="formcontrol">
+        <label for="pass"> Password </label>
+        <input type="pass" formControlName="pass" id="pass" />
+      </div>
+
+      <div class="btn-container">
+        <button
+          class="btn"
+          (click)="register()"
+          [disabled]="!registerForm.valid"
+        >
+          New Account
+        </button>
+      </div>
+      <span (click)="this.showLogin = !this.showLogin" class="link">Ya estás registrado? Accede</span>
+    </form>
+  </div>
+</div>
