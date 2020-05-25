@@ -1,4 +1,5 @@
-import { User } from './user-dto';
+import { UserDTO } from 'src/app/_data/user-dto';
+
 export interface PostDTO {
   _id: string;
   comments: any[];
@@ -6,5 +7,5 @@ export interface PostDTO {
   postAuthorNickName: string;
   postTitle: string;
   postContent: string;
-  user: User;
+  user: UserDTO;
 }

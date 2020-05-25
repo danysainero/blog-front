@@ -1,7 +1,7 @@
-<p style="text-align: center;">Lista de posts</p>
+<p style="text-align: center;">Lista pública de posts</p>
 <p style="text-align: center;">↓</p>
 
-<div class="card" *ngFor="let post of posts | async; index as i">
+<div class="card" *ngFor="let post of posts$ | async; index as i">
   <div class="card__body">
     <p class="card__info">Autor: {{ post?.postAuthorName }} </p>
     <div class="card__img">
@@ -11,7 +11,7 @@
     <p class="card__text">Contenido: {{ post?.postContent }}</p>
     <div class="btn-container">
       <button class="btn btn__comment" (click)="showPost(post?.postId)">
-        Ver Post
+        Ver Comentarios
       </button>
     </div>
   </div>

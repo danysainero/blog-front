@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from 'src/app/_data/post';
-import { PostsService } from 'src/app/_services/posts.service';
+import { PostsService } from 'src/app/_services/bussiness/posts.service';
 import { Helper } from './../../helpers/helper';
 @Component({
   selector: 'app-post-private',
@@ -69,7 +69,10 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
 
   savePost(ev, i, postId) {
     const modifiedPost = this.helper.getPostData(i);
-    this.saveSub = this.postsService.modifyPost(postId, modifiedPost).subscribe();
+    this.saveSub = this.postsService.modifyPost(postId, modifiedPost).subscribe(
+      (res) => res,
+      (error) => console.log(error.statusText)
+    );
     this.helper.makePostUnwritable(ev, i);
   }
 
@@ -78,7 +81,10 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
   }
 
   deletePost(id) {
-    this.deleteSub = this.postsService.deletePost(id).subscribe();
+    this.deleteSub = this.postsService.deletePost(id).subscribe(
+      (res) => res,
+      (error) => console.log(error.statusText)
+    );
   }
 
   showDetails(id) {

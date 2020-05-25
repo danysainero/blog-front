@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { AppLoginComponent } from 'src/app/shared/backoffice-login/app-login.component';
 import { PostPrivateDetailComponent } from 'src/app/shared/post-private-detail/post-private-detail.component';
-import { AppLoginComponent } from 'src/app/_layouts/backoffice/backoffice-login/app-login.component';
-import { GuardsService } from 'src/app/_services/guards-service.service';
+import { GuardsService } from 'src/app/_services/bussiness/guards-service.service';
 import { PostPrivateComponent } from './../../shared/post-private/post-private.component';
 import { BackofficeDefaultComponent } from './backoffice-default/backoffice-default.component';
 
