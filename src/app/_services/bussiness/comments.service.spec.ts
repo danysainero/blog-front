@@ -1,11 +1,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/internal/observable/of';
-import { Comment } from '../_data/comment';
-import { CommentsService } from './bussiness/comments.service';
-import { CommentsProxyService } from './proxys/comments-proxy.service';
-import { FAKE_COMMENTS } from './proxys/comments-proxy.service.spec';
-import { FAKE_POSTS } from './proxys/posts-proxy.service.spec';
+import { Comment } from '../../_data/comment';
+import { CommentsProxyService } from '../proxys/comments-proxy.service';
+import { FAKE_COMMENTS } from '../proxys/comments-proxy.service.spec';
+import { FAKE_POSTS } from '../proxys/posts-proxy.service.spec';
+import { CommentsService } from './comments.service';
 
 
 describe('CommentsService', () => {

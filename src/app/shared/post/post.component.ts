@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Post } from 'src/app/_data/post';
-import { PostsService } from 'src/app/_services/posts.service';
+import { PostsService } from 'src/app/_services/bussiness/posts.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -11,7 +11,7 @@ import { PostsService } from 'src/app/_services/posts.service';
 
 export class PostComponent implements OnInit {
 
-  posts: Observable<Post[]>;
+  posts$: Observable<Post[]>;
 
   constructor(private postsService: PostsService, private router: Router) { }
 
@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
    }
 
   getAllPost() {
-    this.posts = this.postsService.gelAllPosts();
+    this.posts$ = this.postsService.gelAllPosts();
   }
 
   showPost(id) {

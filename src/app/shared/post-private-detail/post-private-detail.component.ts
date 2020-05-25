@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Post } from 'src/app/_data/post';
-import { PostsService } from 'src/app/_services/posts.service';
-import { CommentsService } from './../../_services/comments.service';
+import { PostsService } from 'src/app/_services/bussiness/posts.service';
+import { CommentsService } from '../../_services/bussiness/comments.service';
 
 @Component({
   selector: 'app-post-private-detail',
@@ -61,11 +61,17 @@ export class PostPrivateDetailComponent implements OnInit, OnDestroy {
   }
 
   modifyComment(commentId) {
-    this.modifyCommentSub = this.commentsService.modifyComment(commentId, this.modifyCommentForm.value).subscribe();
+    this.modifyCommentSub = this.commentsService.modifyComment(commentId, this.modifyCommentForm.value).subscribe(
+      (res) => res,
+      (error) => console.log(error.statusText)
+    );
   }
 
   deleteComment(commentId) {
-    this.deleteCommentSub = this.commentsService.deleteComment(commentId).subscribe();
+    this.deleteCommentSub = this.commentsService.deleteComment(commentId).subscribe(
+      (res) => res,
+      (error) => console.log(error.statusText)
+    );
   }
 
   ngOnDestroy() {
