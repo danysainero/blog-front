@@ -57,14 +57,14 @@ describe('PostsService', () => {
 
   it('createPost method should mapper dto to model', async(() => {
     const spyProxy = spyOn(proxy, 'createPost').and.returnValue(of(FAKE_POSTS[0]));
-    service.createPost(FAKE_POSTS[0]).subscribe(
+    service.createPost(FAKE_POST[0]).subscribe(
       (post: Post) => {
-        expect(post.postId).toEqual(FAKE_POSTS[0]._id);
-        expect(post.postAuthorName).toEqual(FAKE_POSTS[0].postAuthorName);
-        expect(post.comments).toEqual(FAKE_POSTS[0].comments);
-        expect(post.postAuthorNickName).toEqual(FAKE_POSTS[0].postAuthorNickName);
-        expect(post.postContent).toEqual(FAKE_POSTS[0].postContent);
-        expect(post.postTitle).toEqual(FAKE_POSTS[0].postTitle);
+        expect(post.postId).toEqual(FAKE_POST[0]._id);
+        expect(post.postAuthorName).toEqual(FAKE_POST[0].postAuthorName);
+        expect(post.comments).toEqual(FAKE_POST[0].comments);
+        expect(post.postAuthorNickName).toEqual(FAKE_POST[0].postAuthorNickName);
+        expect(post.postContent).toEqual(FAKE_POST[0].postContent);
+        expect(post.postTitle).toEqual(FAKE_POST[0].postTitle);
       }
     );
     expect(spyProxy).toHaveBeenCalled();
@@ -101,3 +101,17 @@ describe('PostsService', () => {
 });
 
 
+export const FAKE_POST =
+  [{
+    _id: '3453453456354345',
+    postAuthorName: 'Autor',
+    postAuthorNickName: 'nick',
+    postTitle: 'Titulo Test unit',
+    postContent: 'Text post unit',
+    comments: [{
+      _id: '5ec515ff4cca4f468bf3c544',
+      commentContent: 'holaaaa',
+      user: '5eb7bd383745fc5143e5c1ad',
+      commentAuthorName: 'admin2'
+    }]
+  }];

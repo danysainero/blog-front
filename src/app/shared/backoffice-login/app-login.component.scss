@@ -1,65 +1,77 @@
-.link{
+
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 80vh;
+}
+
+.formgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    border: groove rgba(114, 102, 128, 0.623);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  & h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .link {
     color: rgb(109, 138, 177);
     cursor: pointer;
     display: inline-block;
-    font-size: .8rem;
-    margin: 20px 0; 
+    font-size: 0.8rem;
+    margin: 20px 0;
     padding: 5px 15px;
-}
-.login {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 80vh;
+    text-align: center;
+    width: 200px;
+  }
 
-}
-.formgroup {
-    
+  .formcontrol {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%; 
+    justify-content: center;
   
-    & H1{
-        text-align: center;
-        margin: 0 0 20px 0 ;
+    & label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+    }
+  
+    & input {
+      font-size: 0.6rem;
+      margin-bottom: 10px;
+      padding: 3px;
     }
   }
   
-  .formcontrol{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      & label{
-      display: block;
-      font-size: .8rem;
-      margin-bottom: 3px;
-      }
-  
-      & input {
-          font-size: .6rem;
-          margin-bottom: 10px;
-  padding: 3px;
-      }
+  .btn-container {
+    display: flex;
+    justify-content: center;
   }
   
-  .btn-container{
-      display: flex;
-      justify-content: center;
+  .btn {
+    background: #6de877b3;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.7rem;
+    margin: 10px 0;
+  
+    &:hover {
+      background: #58c461b3;
+    }
   }
-  
-  .btn{
-      background: #6de877b3;
-      border-radius: 2px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.7rem;
-      margin: 10px 0;
-  
-      &:hover{
-          background: #58c461b3;
-      }
-  } 
+}
+
+
 
 /* .login {
     display: flex;

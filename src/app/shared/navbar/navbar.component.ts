@@ -10,7 +10,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   logout(){
     localStorage.clear();

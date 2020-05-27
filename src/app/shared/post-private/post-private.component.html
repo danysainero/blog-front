@@ -1,6 +1,6 @@
 <p style="text-align: center;">Lista privada de posts</p>
 <p style="text-align: center;">↓</p>
-<div class="card" *ngFor="let post of (posts | async), index as i" id="post{{ i }}">
+<div class="card" *ngFor="let post of (posts$ | async), index as i" id="post{{ i }}">
   <div class="card__body">
     <p class="card__info"> {{ post?.postAuthorName }} </p>
     <div class="card__img">
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="newpost" *ngIf="displayNewPostForm" [@inOutAnimation]>
+<div class="newpost" *ngIf="displayNewPostForm">
   <div class="formgroup">
     <form [formGroup]="newPostForm">
       <div class="formcontrol">

@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,36 +8,13 @@ import { Helper } from './../../helpers/helper';
 @Component({
   selector: 'app-post-private',
   templateUrl: './post-private.component.html',
-  styleUrls: ['./post-private.component.scss'],
-  animations: [
-    trigger(
-      'inOutAnimation',
-      [
-        transition(
-          ':enter',
-          [
-            style({ opacity: 0 }),
-            animate('1s linear',
-              style({ opacity: 1 }))
-          ]
-        ),
-        transition(
-          ':leave',
-          [
-            style({ opacity: 1 }),
-            animate('0.5s linear',
-              style({ opacity: 0 }))
-          ]
-        )
-      ]
-    )
-  ]
+  styleUrls: ['./post-private.component.scss']
 })
 export class PostPrivateComponent implements OnInit, OnDestroy {
 
   newPostForm: FormGroup;
   displayNewPostForm = false;
-  posts: Observable<Post[]>;
+  posts$: Observable<Post[]>;
   modifyPostSub: Subscription;
   deleteSub: Subscription;
   saveSub: Subscription;
@@ -61,19 +37,13 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
   }
 
   getAllPost() {
-    this.posts = this.postsService.gelAllPosts();
-  }
-  createPost() {
-    this.createPosstSub = this.postsService.createPost(this.newPostForm.value).subscribe();
+    this.posts$ = this.postsService.gelAllPosts();
   }
 
-  savePost(ev, i, postId) {
-    const modifiedPost = this.helper.getPostData(i);
-    this.saveSub = this.postsService.modifyPost(postId, modifiedPost).subscribe(
-      (res) => res,
-      (error) => console.log(error.statusText)
-    );
-    this.helper.makePostUnwritable(ev, i);
+  createPost() {
+    this.createPosstSub = this.postsService.createPost(this.newPostForm.value).subscribe(() => {
+      window.location.reload();
+    });
   }
 
   modifyPost(ev, indexItem) {
@@ -82,9 +52,18 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
 
   deletePost(id) {
     this.deleteSub = this.postsService.deletePost(id).subscribe(
-      (res) => res,
+      () => { window.location.reload(); },
       (error) => console.log(error.statusText)
     );
+  }
+
+  savePost(ev, i, postId) {
+    const modifiedPost = this.helper.getPostData(i);
+    this.saveSub = this.postsService.modifyPost(postId, modifiedPost).subscribe(
+      () => { window.location.reload(); },
+      (error) => console.log(error.statusText)
+    );
+    this.helper.makePostUnwritable(ev, i);
   }
 
   showDetails(id) {

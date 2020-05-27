@@ -28,8 +28,6 @@ const ROUTES: Routes = [
       },
     ]
   }
-
-
 ];
 
 @NgModule({

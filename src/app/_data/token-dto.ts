@@ -1,4 +1,4 @@
 export interface TokenDTO {
-    messageDTO: string;
-    tokenDTO: string;
+    message: string;
+    token: string;
 }

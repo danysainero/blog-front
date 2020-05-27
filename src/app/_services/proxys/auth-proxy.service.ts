@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { TokenDTO } from './../../_data/token-dto';
+import { UserDTO } from './../../_data/user-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,11 @@ export class AuthProxyService {
 
   }
 
-  register(formBody): Observable<any> {
-    return this.httpClient.post('http://localhost:3001/api/users/', formBody);
+  register(formBody): Observable<UserDTO> {
+    return this.httpClient.post<UserDTO>('http://localhost:3001/api/users/', formBody);
   }
 
-   checkUserName(userName) {
-    return  this.httpClient.put('http://localhost:3001/api/users/', {userName});
+   checkUserName(userName): Observable<UserDTO> {
+    return  this.httpClient.put<UserDTO>('http://localhost:3001/api/users/', {userName});
   }
 }

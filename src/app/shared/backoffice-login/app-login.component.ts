@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
   subRegister: Subscription;
   showLogin: boolean;
 
-  constructor(private authService: AuthService, private authProxyService: AuthProxyService, private router: Router) { }
+  // tslint:disable-next-line: max-line-length
+  constructor(private authService: AuthService, private authProxyService: AuthProxyService, private router: Router, private ngZone: NgZone) { }
 
   ngOnInit(): void {
     this.showLogin = true;
@@ -55,7 +56,9 @@ export class AppLoginComponent implements OnInit, OnDestroy {
     this.authService.login(this.loginForm.value).subscribe(
       (token: Token) => {
         localStorage.setItem('token', token.token);
-        this.router.navigate(['backoffice/app']);
+        this.ngZone.run(() => {
+          this.router.navigate(['backoffice/app']);
+        });
       },
       (error) => console.log(error.statusText = 'fail in login')
     );
