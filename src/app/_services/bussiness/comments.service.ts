@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
 import { Comment } from 'src/app/_data/comment';
+import { PostsProxyService } from 'src/app/_services/proxys/posts-proxy.service';
 import { DtoMapper } from '../../helpers/dto-mapper';
 import { CommentDTO } from '../../_data/comment-dto';
 import { CommentsProxyService } from '../proxys/comments-proxy.service';
@@ -11,11 +12,11 @@ import { CommentsProxyService } from '../proxys/comments-proxy.service';
 })
 export class CommentsService {
 
-constructor(private commentsProxyService: CommentsProxyService, private dtoMapper: DtoMapper) { }
+constructor(private commentsProxyService: CommentsProxyService, private dtoMapper: DtoMapper, private postProxy: PostsProxyService) { }
 
   createComment(PostId, comment): Observable<Comment> {
     return this.commentsProxyService.createComment(PostId, this.dtoMapper.adaptCommentToDTO(comment)).pipe(
-      map((commentResult: CommentDTO) => ({ postId: commentResult._id, ...comment }))
+      map((commentResult: CommentDTO) => ({ _id: commentResult._id, ...comment }))
     );
   }
 
@@ -31,5 +32,10 @@ constructor(private commentsProxyService: CommentsProxyService, private dtoMappe
     );
   }
 
+  getCommentsByPostsId(postId: string): Observable<Comment[]> {
+    return this.postProxy.getPostsById(postId).pipe(
+      map(postDTO => this.dtoMapper.adaptDTOToPost(postDTO).comments)
+    );
+  }
 
 }

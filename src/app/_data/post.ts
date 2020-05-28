@@ -1,4 +1,4 @@
-import { User } from 'src/app/_data/user';
+import { Comment } from './comment';
 
 export interface Post {
     postId?: string;
@@ -6,6 +6,6 @@ export interface Post {
     postAuthorNickName?: string;
     postTitle?: string;
     postContent?: string;
-    comments?: any[];
-    user?: User;
+    comments?: Comment[];
 }
+

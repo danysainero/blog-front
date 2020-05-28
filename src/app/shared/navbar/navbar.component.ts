@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
+logged: boolean;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.logged = true;
   }
 
   logout(){

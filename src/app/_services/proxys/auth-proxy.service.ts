@@ -12,7 +12,6 @@ export class AuthProxyService {
   constructor(private httpClient: HttpClient) { }
 
   login(loginForm): Observable<TokenDTO> {
-
     const auth = btoa(`${loginForm.userName}:${loginForm.pass}`);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -20,9 +19,7 @@ export class AuthProxyService {
         Authorization: 'Basic ' + auth
       })
     };
-
     return this.httpClient.post<TokenDTO>('http://localhost:3001/api/login/', '', httpOptions);
-
   }
 
   register(formBody): Observable<UserDTO> {
@@ -30,6 +27,6 @@ export class AuthProxyService {
   }
 
    checkUserName(userName): Observable<UserDTO> {
-    return  this.httpClient.put<UserDTO>('http://localhost:3001/api/users/', {userName});
+    return  this.httpClient.post<UserDTO>('http://localhost:3001/api/users/user', userName);
   }
 }
