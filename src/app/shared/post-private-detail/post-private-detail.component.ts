@@ -1,83 +1,66 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Comment } from 'src/app/_data/comment';
 import { Post } from 'src/app/_data/post';
 import { PostsService } from 'src/app/_services/bussiness/posts.service';
+import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
 import { CommentsService } from '../../_services/bussiness/comments.service';
+import { CommentsStoreService } from './../../_services/bussiness/comments-store';
 
 @Component({
   selector: 'app-post-private-detail',
   templateUrl: './post-private-detail.component.html',
   styleUrls: ['./post-private-detail.component.scss']
 })
-export class PostPrivateDetailComponent implements OnInit, OnDestroy {
+export class PostPrivateDetailComponent implements OnInit {
 
   modifyCommentForm: FormGroup;
   newCommentForm: FormGroup;
+  comments$: Observable<Comment[]>;
   post$: Observable<Post>;
   displayNewPostForm = false;
-  createCommentSub: Subscription;
-  modifyCommentSub: Subscription;
-  deleteCommentSub: Subscription;
-  newPostError: object;
 
   constructor(
     private postsService: PostsService,
     private commentsService: CommentsService,
+    private commentsStore: CommentsStoreService,
+    private postsStore: PostsStoreService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getPostByID();
+    this.commentsStore.init(this.route.snapshot.params.id);
+    this.comments$ = this.commentsStore.get$();
+    this.post$ = this.postsService.getPostsById(this.route.snapshot.params.id);
     this.initializeForms();
-
   }
 
-  initializeForms() {
-    this.newCommentForm = new FormGroup({
-      commentContent: new FormControl('', [Validators.required])
-    });
-
-    this.modifyCommentForm = new FormGroup({
-      commentContent: new FormControl('', [Validators.required])
-    });
+  async  createComment() {
+    await this.commentsStore.createComment$(this.route.snapshot.params.id, this.newCommentForm.value);
+    this.newCommentForm.reset();
+    this.displayNewPostForm = !this.displayNewPostForm;
   }
 
-  getPostByID() {
-    const postUrlId = this.route.snapshot.params.id;
-    this.post$ = this.postsService.getPostsById(postUrlId);
+  modifyComment(commentId, comment) {
+    const commentContent = this.modifyCommentForm.get('commentContent').value.trim();
+    comment !== '' ? comment.commentContent = commentContent : comment.commentContent = comment.commentContent;
+    this.commentsStore.modifyComment$(commentId, comment);
+    this.modifyCommentForm.reset();
   }
 
-  createComment() {
-    const postUrlId = this.route.snapshot.params.id;
-    this.createCommentSub = this.commentsService.createComment(postUrlId, this.newCommentForm.value).subscribe(() => {
-      this.displayNewPostForm = !this.displayNewPostForm;
-    },
-      (error) => {
-        this.newPostError = error.error.message;
-      }
-    );
-  }
+deleteComment(commentId) {
+  this.commentsStore.deleteComment$(commentId);
+}
 
-  modifyComment(commentId) {
-    this.modifyCommentSub = this.commentsService.modifyComment(commentId, this.modifyCommentForm.value).subscribe(
-      (res) => res,
-      (error) => console.log(error.statusText)
-    );
-  }
+initializeForms() {
+  this.newCommentForm = new FormGroup({
+    commentContent: new FormControl('', [Validators.required])
+  });
 
-  deleteComment(commentId) {
-    this.deleteCommentSub = this.commentsService.deleteComment(commentId).subscribe(
-      (res) => res,
-      (error) => console.log(error.statusText)
-    );
-  }
-
-  ngOnDestroy() {
-    if (this.createCommentSub) { this.createCommentSub.unsubscribe(); }
-    if (this.modifyCommentSub) { this.modifyCommentSub.unsubscribe(); }
-    if (this.deleteCommentSub) { this.deleteCommentSub.unsubscribe(); }
-  }
+  this.modifyCommentForm = new FormGroup({
+    commentContent: new FormControl('', [Validators.required])
+  });
+}
 
 }

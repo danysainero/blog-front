@@ -1,5 +1,5 @@
 export interface CommentDTO {
-    _id: string;
-    commentContent: string;
-    commentAuthorName: string;
+    _id?: string;
+    commentContent?: string;
+    commentAuthorName?: string;
 }

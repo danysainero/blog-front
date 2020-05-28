@@ -8,6 +8,7 @@ import { TokenDTO } from '../_data/token-dto';
 import { User } from '../_data/user';
 import { UserDTO } from '../_data/user-dto';
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -28,19 +29,18 @@ export class DtoMapper {
 
     adaptPosstToDTO(post: Post): PostDTO {
         return {
-            _id: post.postId,
-            postAuthorName: post.postAuthorName,
-            postAuthorNickName: post.postAuthorNickName,
-            postTitle: post.postTitle,
-            postContent: post.postContent,
-            comments: post.comments,
-            user: null
+            _id: post?.postId,
+            postAuthorName: post?.postAuthorName,
+            postAuthorNickName: post?.postAuthorNickName,
+            postTitle: post?.postTitle,
+            postContent: post?.postContent,
+            comments: post.comments
         };
     }
 
     adaptDTOToComment(commentDTO: CommentDTO): Comment {
         return {
-            commentId: commentDTO._id,
+            _id: commentDTO._id,
             commentContent: commentDTO.commentContent,
             commentAuthorName: commentDTO.commentAuthorName
         };
@@ -48,7 +48,7 @@ export class DtoMapper {
 
     adaptCommentToDTO(comment: Comment): CommentDTO {
         return {
-            _id: comment.commentId,
+            _id: comment._id,
             commentContent: comment.commentContent,
             commentAuthorName: comment.commentAuthorName
         };

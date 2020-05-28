@@ -1,6 +1,6 @@
 
 export interface Comment {
-    commentId?: string;
+    _id?: string;
     commentContent?: string;
     commentAuthorName?: string;
 }
