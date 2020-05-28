@@ -3,6 +3,9 @@
   <div class="formgroup" *ngIf="showLogin">
     <form [formGroup]="loginForm">
       <h1>SIGN IN</h1>
+      <div *ngIf="errorTextLogin">
+        <p  style="color: crimson; text-align: center;">{{ errorTextLogin }}</p>
+        </div>
       <div class="formcontrol">
         <label for="userName">Username</label>
         <input type="text" formControlName="userName" id="userName" />

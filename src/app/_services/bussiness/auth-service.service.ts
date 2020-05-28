@@ -17,7 +17,8 @@ export class AuthService {
   login(loginForm): Observable<Token> {
 
     return this.authProxy.login(loginForm).pipe(
-      map(tokenDTO =>  this.dtoMapper.adaptDTOToToken(tokenDTO))
+      map(tokenDTO => {
+        return this.dtoMapper.adaptDTOToToken(tokenDTO); })
     );
   }
 

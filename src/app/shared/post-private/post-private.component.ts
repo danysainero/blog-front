@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from 'src/app/_data/post';
 import { PostsService } from 'src/app/_services/bussiness/posts.service';
+import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
 import { Helper } from './../../helpers/helper';
+
+
 @Component({
   selector: 'app-post-private',
   templateUrl: './post-private.component.html',
@@ -23,10 +26,12 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private postsService: PostsService,
+    private store: PostsStoreService,
     private helper: Helper) { }
 
   ngOnInit(): void {
-    this.getAllPost();
+    this.store.init();
+    this.posts$ = this.store.get$();
 
     this.newPostForm = new FormGroup({
       postAuthorName: new FormControl('', [Validators.required]),
@@ -36,14 +41,8 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
     });
   }
 
-  getAllPost() {
-    this.posts$ = this.postsService.gelAllPosts();
-  }
-
   createPost() {
-    this.createPosstSub = this.postsService.createPost(this.newPostForm.value).subscribe(() => {
-      window.location.reload();
-    });
+    this.store.createPost$(this.newPostForm.value);
   }
 
   modifyPost(ev, indexItem) {
@@ -51,10 +50,7 @@ export class PostPrivateComponent implements OnInit, OnDestroy {
   }
 
   deletePost(id) {
-    this.deleteSub = this.postsService.deletePost(id).subscribe(
-      () => { window.location.reload(); },
-      (error) => console.log(error.statusText)
-    );
+    this.store.deletePost$(id);
   }
 
   savePost(ev, i, postId) {

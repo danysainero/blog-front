@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Post } from 'src/app/_data/post';
-import { PostsService } from 'src/app/_services/bussiness/posts.service';
+import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -13,14 +13,11 @@ export class PostComponent implements OnInit {
 
   posts$: Observable<Post[]>;
 
-  constructor(private postsService: PostsService, private router: Router) { }
+  constructor(private router: Router, private store: PostsStoreService) { }
 
   ngOnInit(): void {
-    this.getAllPost();
-   }
-
-  getAllPost() {
-    this.posts$ = this.postsService.gelAllPosts();
+    this.store.init();
+    this.posts$ = this.store.get$();
   }
 
   showPost(id) {

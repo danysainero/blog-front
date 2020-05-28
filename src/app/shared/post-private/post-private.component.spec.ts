@@ -35,7 +35,7 @@ describe('PostPrivateComponent', () => {
   it('should get posts', async(() => {
     const spyProxy = spyOn(proxy, 'getAllPost').and.returnValue(of(FAKE_POSTS));
     component.ngOnInit();
-    component.posts.subscribe(
+    component.posts$.subscribe(
       posts => {
         expect(posts[0].postId).toEqual(FAKE_POSTS[0]._id);
       }

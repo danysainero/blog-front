@@ -19,6 +19,7 @@ export class AppLoginComponent implements OnInit, OnDestroy {
   subLogin: Subscription;
   subRegister: Subscription;
   showLogin: boolean;
+  errorTextLogin: string;
 
   // tslint:disable-next-line: max-line-length
   constructor(private authService: AuthService, private authProxyService: AuthProxyService, private router: Router, private ngZone: NgZone) { }
@@ -26,19 +27,6 @@ export class AppLoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.showLogin = true;
     this.initializeForms();
-  }
-
-  initializeForms(): void {
-    this.loginForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      pass: new FormControl('', [Validators.required])
-    });
-
-    this.registerForm = new FormGroup({
-      userName: new FormControl('', [Validators.required], [CommonValidator.userTaken]),
-      pass: new FormControl('', [Validators.required]),
-      role: new FormControl(1)
-    });
   }
 
   register(): void {
@@ -53,18 +41,33 @@ export class AppLoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
-    this.authService.login(this.loginForm.value).subscribe(
+    this.subLogin = this.authService.login(this.loginForm.value).subscribe(
       (token: Token) => {
         localStorage.setItem('token', token.token);
         this.ngZone.run(() => {
           this.router.navigate(['backoffice/app']);
         });
       },
-      (error) => console.log(error.statusText = 'fail in login')
+      (error) => {
+        this.errorTextLogin = ' username or password invalid ';
+        console.log(error.statusText = 'fail in login');
+      }
     );
 
   }
 
+  initializeForms(): void {
+    this.loginForm = new FormGroup({
+      userName: new FormControl('', [Validators.required]),
+      pass: new FormControl('', [Validators.required])
+    });
+
+    this.registerForm = new FormGroup({
+      userName: new FormControl('', [Validators.required], [CommonValidator.userTaken]),
+      pass: new FormControl('', [Validators.required]),
+      role: new FormControl(1)
+    });
+  }
 
   ngOnDestroy(): void {
     if (this.subLogin) { this.subLogin.unsubscribe(); }
