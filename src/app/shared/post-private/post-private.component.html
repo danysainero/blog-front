@@ -1,103 +1,64 @@
-<p style="text-align: center;">Lista privada de posts</p>
-<p style="text-align: center;">↓</p>
-<div
-  class="card"
-  *ngFor="let post of posts$ | async; index as i"
-  id="post{{ i }}"
->
-  <div class="card__body">
-    <p class="card__info">{{ post?.postAuthorName }}</p>
-    <div class="card__img">
-      <img
-        class="card__img__detail"
-        src="../../../assets/rectangle.png"
-        alt="dummy image"
-      />
-    </div>
-    <p class="card__title">id: {{ post?.postId }}</p>
-    <p class="card__title">{{ post?.postTitle }}</p>
-    <p class="card__text">{{ post?.postContent }}</p>
-    <div class="btn-container">
-      <div>
-        <button class="btn btn__delete" (click)="deletePost(post?.postId)">
-          Delete Post
-        </button>
-      </div>
-      <div>
-        <button class="btn" (click)="showDetails(post?.postId)">
-          Show Comments
-        </button>
-      </div>
-    </div>
-    <div>
-      <div class="formgroup">
-        <form class="UpdatePostForm" [formGroup]="UpdatePostForm">
-          <div>
-            <label for="postTitle">Título</label>
-            <input type="text" formControlName="postTitle" id="postTitle" />
-          </div>
-          <div>
-            <label for="postContent">Contenido</label>
-            <textarea
-              class="content"
-              formControlName="postContent"
-              name="postContent"
-              id="postContent"
-            ></textarea>
-          </div>
-          <div>
-            <button (click)="modifyPost(post.postId, post)">Update</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="newpost" *ngIf="displayNewPostForm">
-  <div class="formgroup">
-    <form [formGroup]="newPostForm">
-      <div class="formcontrol">
-        <label for="postAuthorName">Autor</label>
-        <input
-          type="text"
-          formControlName="postAuthorName"
-          id="postAuthorName"
-        />
-      </div>
-      <div class="formcontrol">
-        <label for="postAuthorNickName">Nick</label>
-        <input
-          type="text"
-          formControlName="postAuthorNickName"
-          id="postAuthorNickName"
-        />
-      </div>
-      <div class="formcontrol">
-        <label for="postTitle">Título</label>
-        <input type="text" formControlName="postTitle" id="postTitle" />
-      </div>
-      <div class="formcontrol">
-        <label for="postContent">Contenido</label>
-        <textarea
-          class="content"
+<div class="card" *ngFor="let post of posts$ | async; index as i"  id="post{{ i }}" >
+ 
+<p-card header="{{ post?.postTitle }}" [style]="{width: '100%'}" styleClass="ui-card-shadow">
+ 
+  <p-header class="header">
+    <div class="header__header">
+      <p-button label="" icon="pi pi-trash" (click)="deletePost(post?.postId)" styleClass="ui-button-danger"></p-button>
+      <p style="text-align: right;">ref: {{ post?.postId }} / Autor: {{ post?.postAuthorName }}</p>
+  </div>
+      <img class="header__img" src="Card"  src="../../../assets/rectangle.png"  (click)="showDetails(post?.postId)">
+  </p-header>
+  <div class="post-content" (click)="showDetails(post?.postId)">{{ post?.postContent }}</div>
+
+  <p-footer>
+      <form class="p-formgroup-inline" [formGroup]="UpdatePostForm">
+        <div class="p-field ui-float-label">
+          <input type="text" formControlName="postTitle" id="postTitle" size="50" pInputText autocomplete="off"/>
+          <label for="postTitle">Título</label>
+        </div>
+        <div class="ui-float-label" >
+          <input
           formControlName="postContent"
           name="postContent"
           id="postContent"
-        ></textarea>
+          size="90" pInputText
+          autocomplete="off"
+          />
+          <label for="postContent">Contenido</label>
+        </div>
+        <div>
+          <p-button styleClass="ui-button-warning" label="Update" (click)="modifyPost(post.postId, post)"></p-button>
+        </div>
+      </form>
+  </p-footer>
+</p-card>
+
+<div class="newpost" *ngIf="displayNewPostForm">
+    <form class="ui-fluid p-formgrid p-grid" [formGroup]="newPostForm">
+      <div class="p-col">
+        <label for="postAuthorName">Autor</label>
+        <input id="postAuthorName" type="text" pInputText  formControlName="postAuthorName" autocomplete="off"> 
+      </div>
+      <div class="p-col">
+        <label for="postAuthorNickName">Nick</label>
+        <input id="postAuthorNickName" type="text" pInputText  formControlName="postAuthorNickName" autocomplete="off"> 
+      </div>
+      <div class="p-col">
+        <label for="postTitle">Título</label>
+        <input id="postTitle" type="text" pInputText  formControlName="postTitle" autocomplete="off"> 
+      </div>
+      <div class="p-col">
+        <label for="postContent">Contenido</label>
+        <input id="postContent" type="text" pInputText formControlName="postContent"/>
       </div>
       <div class="btn-container">
-        <button
-          class="btn"
-          (click)="createPost(); displayNewPostForm = !displayNewPostForm"
-          [disabled]="!newPostForm.valid"
-        >
-          Create
-        </button>
+        <p-button label="Create" styleClass="ui-button-success"  (onClick)="createPost(); displayNewPostForm = !displayNewPostForm"
+        [disabled]="!newPostForm.valid"></p-button>
       </div>
     </form>
-  </div>
 </div>
-<button class="btn-new-post" (click)="displayNewPostForm = !displayNewPostForm">
+<button class="btn-new-post" (click)="displayNewPostForm = !displayNewPostForm;">
   +
 </button>

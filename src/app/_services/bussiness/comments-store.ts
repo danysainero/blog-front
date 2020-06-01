@@ -14,30 +14,15 @@ export class CommentsStoreService extends Store<Comment[]>{
     }
 
     init(id): Promise<Comment[]> {
+        if (this.get()) { return; }
+
         return this.commentsService.getCommentsByPostsId(id).pipe(tap(comments => this.store(comments))
         ).toPromise();
     }
 
 
 
-    createComment$(postId: string, comment: Comment): Promise<Comment> {
-        return this.commentsService.createComment(postId, comment).pipe(
-            tap(commentResult => {
-                this.store([...this.get(), commentResult]);
-            })).toPromise();
-    }
 
-    modifyComment$(commentId: string, comment: Comment): Promise<Comment> {
-        return this.commentsService.modifyComment(commentId, comment).pipe(
-            tap(() => {
-                const comments = this.get();
-                const p = Object.assign({}, comment);
-                const index = this.searchIndex(comments, commentId);
-                const newPosts = [...comments.slice(0, index), p, ...comments.slice(index + 1)];
-                this.store(newPosts);
-            })
-        ).toPromise();
-    }
 
     deleteComment$(commentId: string): Promise<Comment> {
         return this.commentsService.deleteComment(commentId).pipe(

@@ -7,25 +7,25 @@ import { PostsService } from 'src/app/_services/bussiness/posts.service';
 import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
 import { Helper } from './../../helpers/helper';
 
-
 @Component({
   selector: 'app-post-private',
   templateUrl: './post-private.component.html',
-  styleUrls: ['./post-private.component.scss']
+  styleUrls: ['./post-private.component.scss'
+  ]
 })
 export class PostPrivateComponent implements OnInit {
 
   newPostForm: FormGroup;
   UpdatePostForm: FormGroup;
   displayNewPostForm = false;
-  displayUpdatePostForm = true;
   posts$: Observable<Post[]>;
 
   constructor(
     private router: Router,
     private postsService: PostsService,
     private store: PostsStoreService,
-    private helper: Helper) { }
+    private helper: Helper,
+   ) { }
 
   ngOnInit(): void {
     this.store.init();
@@ -59,7 +59,9 @@ export class PostPrivateComponent implements OnInit {
 
   }
 
-
+logger(){
+  alert('eeee');
+}
   showDetails(id) {
     this.router.navigate([`backoffice/app/${id}`]);
   }

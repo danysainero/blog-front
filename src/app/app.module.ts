@@ -11,7 +11,7 @@ import { AuthInterceptorService } from './_services/bussiness/auth-interceptor.s
 
 const ROUTES: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: AppHomeComponent},
+  { path: 'home', component: AppHomeComponent },
   { path: 'backoffice', loadChildren: () => import('./_layouts/backoffice/backoffice.module').then(m => m.BackofficeModule) },
   { path: '**', redirectTo: 'home' }
 ];

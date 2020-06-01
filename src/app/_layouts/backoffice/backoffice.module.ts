@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
 import { AppLoginComponent } from 'src/app/shared/backoffice-login/app-login.component';
 import { PostPrivateDetailComponent } from 'src/app/shared/post-private-detail/post-private-detail.component';
 import { GuardsService } from 'src/app/_services/bussiness/guards-service.service';
@@ -41,6 +44,9 @@ const ROUTES: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    InputTextModule,
+    ButtonModule,
+    CardModule,
      RouterModule.forChild(ROUTES)
   ],
   exports: [

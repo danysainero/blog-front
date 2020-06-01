@@ -1,3 +1,33 @@
+.card {
+  margin: 10px auto;
+  padding: 15px 100px;
+
+  .header {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      * {
+        margin: 5px;
+      }
+    }
+    &__img {
+      cursor: pointer;
+    }
+  }
+
+  .post-content {
+    cursor: pointer;
+  }
+
+  .p-formgroup-inline {
+    background: rgba(0, 0, 0, 0.119);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 5px;
+  }
+}
+
 .btn-new-post {
   background: rgb(159, 159, 159);
   border: groove 2px rgb(137, 133, 133);
@@ -9,148 +39,21 @@
   width: 30px;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  margin: 20px auto;
-  padding: 15px 50px;
-  &__body {
-    border: solid rgba(114, 114, 114, 0.537) 1px;
-    border-radius: 4px;
-    padding: 15px;
-  }
-
-  &__info {
-    font-size: 0.8rem;
-    text-align: right;
-  }
-  &__img {
-    display: flex;
-    justify-content: center;
-
-    &__detail {
-      margin: 10px;
-      width: 60%;
-      border-radius: 10px;
-    }
-  }
-
-  &__title,
-  &__text {
-    color: rgb(72, 72, 72);
-    font-family: roboto;
-    font-size: 1.3rem;
-    margin: 10px 0;
-    text-align: center;
-  }
-
-  &__text {
-    font-size: 1rem;
-    text-align: justify;
-  }
-
-  .btn-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .btn {
-    align-self: flex-end;
-    border-radius: 2px;
-    font-size: 0.7rem;
-  }
-  .btn__comment {
-    background: rgb(180, 180, 180);
-  }
-
-  .btn__delete {
-    background: rgb(255, 140, 140);
-  }
-
-  .btn__modify {
-    background: rgb(135, 169, 242);
-  }
-
-  .btn__save {
-    background: rgb(135, 242, 169);
-  }
-
-  .btn__cancel {
-    background: rgb(242, 199, 135);
-    align-self: flex-end;
-    border-radius: 2px;
-    font-size: 0.7rem;
-  }
-}
-
 .newpost {
-  border: groove 2px rgb(137, 133, 133);
-  background: rgb(223, 221, 221);
+  box-shadow: 0 0 9px 0px #000000b0;
+  background: #f8f8f8;
   border-radius: 4px;
   position: fixed;
-  padding: 5px 15px;
+  padding: 15px 15px 18px 15px;
   right: 2%;
   bottom: 7%;
   display: flex;
   flex-direction: column;
-}
-.UpdatePostForm {
-  align-items: center;
-  background: #0000002b;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-  padding: 15px;
+  width: 95%;
 
-  * {
-    vertical-align: middle;
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
   }
-
-  & label {
-    font-size: 0.9rem;
-    margin-right: 5px;
-  }
-
-  & input,
-  .content {
-    font-size: 0.7rem;
-    border: none;
-    border-radius: 2px;
-    height: 20px;
-    margin-bottom: 2px;
-    padding: 3px;
-  }
-  & input{
-    width: 100%;
-  }
-  .content {
-    width: 100%;
-  }
-}
-.formcontrol {
-  display: flex;
-  flex-direction: column;
-
-  & label {
-    font-size: 0.9rem;
-    margin-bottom: 2px;
-  }
-
-  & input,
-  .content {
-    font-size: 0.7rem;
-    border: none;
-    border-radius: 2px;
-    height: 20px;
-    margin-bottom: 2px;
-    padding: 3px;
-  }
-}
-
-.btn-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
 }

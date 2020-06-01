@@ -1,6 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { CommonValidator } from 'src/app/helpers/common-validator';
 import { Token } from 'src/app/_data/token';
@@ -22,6 +23,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
   showLogin: boolean;
   errorTextLogin: string;
   user: any;
+  tokenInfo: any;
+
   // tslint:disable-next-line: max-line-length
   constructor(private store: UsersStoreService, private authService: AuthService, private authProxyService: AuthProxyService, private router: Router, private ngZone: NgZone) { }
 
@@ -41,6 +44,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
     this.subLogin = this.authService.login(this.loginForm.value).subscribe(
       (token: Token) => {
         localStorage.setItem('token', token.token);
+        this.tokenInfo = jwt_decode(token.token);
+        this.store.addUser$(this.tokenInfo);
         this.ngZone.run(() => {
           this.router.navigate(['backoffice/app']);
         });

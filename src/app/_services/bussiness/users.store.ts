@@ -8,20 +8,18 @@ import { Store } from './store';
 @Injectable({ providedIn: 'root' })
 export class UsersStoreService extends Store<User[]>{
 
-    constructor(private service: AuthService) {
+    constructor(private service: AuthService, ) {
         super();
     }
-
-    /*   init(): Promise<Comment[]> {
-         return this.service.pipe(tap(users => this.store(users))
+    /*  init(): Promise<any> {
+         return this.service.login().pipe(tap(posts => this.store(posts))
          ).toPromise();
-     }
-  */
+     }*/
 
-    addUserToStore$(user: User): Promise<User> {
-        return this.service.checkUserName(user).pipe(
-            tap(users => {
-                this.store([...this.get(), users]);
+    addUser$(token): any {
+        (token).pipe(
+            tap(user => {
+                this.store([...this.get(), user]);
             })).toPromise();
     }
 
