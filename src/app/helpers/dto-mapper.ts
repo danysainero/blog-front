@@ -65,7 +65,7 @@ export class DtoMapper {
         return {
             UserRole: userDTO.role,
             UserId: userDTO._id,
-            UserUserName: userDTO.userName
+            username: userDTO.userName
         };
     }
 
@@ -73,7 +73,7 @@ export class DtoMapper {
         return {
             role: user.UserRole,
             _id: user.UserId,
-            userName: user.UserUserName
+            userName: user.username
         };
     }
 }

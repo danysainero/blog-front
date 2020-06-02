@@ -30,12 +30,11 @@ export class PostPrivateComponent implements OnInit {
   ngOnInit(): void {
     this.store.init();
     this.posts$ = this.store.get$();
-
     this.initializeForms();
   }
 
   createPost() {
-    this.store.createPost$(this.newPostForm.value);
+   this.store.createPost$(this.newPostForm.value);
   }
 
   deletePost(id) {
@@ -56,21 +55,14 @@ export class PostPrivateComponent implements OnInit {
     if (postContent !== '' || postTitle !== '') {
       this.store.modifyPost$(postId, post);
     }
-
   }
 
-logger(){
-  alert('eeee');
-}
   showDetails(id) {
     this.router.navigate([`backoffice/app/${id}`]);
   }
 
-
   initializeForms() {
     this.newPostForm = new FormGroup({
-      postAuthorName: new FormControl('', [Validators.required]),
-      postAuthorNickName: new FormControl('', [Validators.required]),
       postTitle: new FormControl('', [Validators.required]),
       postContent: new FormControl('', [Validators.required])
     });

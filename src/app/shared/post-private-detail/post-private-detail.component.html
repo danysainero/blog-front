@@ -1,22 +1,21 @@
 <div class="card">
   <p-card
-    header="{{ post$?.postTitle }}"
+    header="{{ (post$ | async )?.postTitle }}"
     [style]="{ width: '100%' }"
     styleClass="ui-card-shadow"
   >
     <p-header class="header">
       <div class="header__header">
         <p style="text-align: right;">
-          ref: {{ post$?.postId }} / Autor:
-          {{ post$?.postAuthorName }}
+        Autor: {{ (post$ | async )?.postAuthorName }}
         </p>
       </div>
       <img class="header__img" src="Card" src="../../../assets/rectangle.png" />
     </p-header>
-    <div class="post-content">{{ post$?.postContent }}</div>
+    <div class="post-content">{{ (post$ | async )?.postContent }}</div>
     <p-footer>
-      <div class="card-comment" *ngFor="let comment of post$?.comments">
-        <p>ref: {{ comment?._id }} / Autor: {{ comment?.commentAuthorName }}</p>
+      <div class="card-comment" *ngFor="let comment of (post$ | async )?.comments">
+        <p  style="text-align: right;"> Autor: {{ comment?.commentAuthorName }}</p>
         <p>Comentario: {{ comment?.commentContent }}</p>
         <form class="p-formgroup-inline" [formGroup]="modifyCommentForm">
           <div class="p-field ui-float-label">
@@ -31,14 +30,19 @@
             <label for="commentContent">modificar comentario</label>
           </div>
           <p-button
+          styleClass="ui-button-danger"
+          label="Delete"
+          (click)="deleteComment(comment?._id)"
+        ></p-button>
+          <p-button
             styleClass="ui-button-warning"
             label="Update"
             (click)="modifyComment(comment?._id, comment)"
           ></p-button>
         </form>
-        <button (click)="deleteComment(post$?.postId, comment?._id)">Eliminar</button>
+      
       </div>
-      <div class="card-comment empty" *ngIf="post$?.comments.length <= 0">
+      <div class="card-comment empty" *ngIf="(post$ | async )?.comments.length <= 0">
         <p class="card-comment__text">No hay comentarios</p>
       </div>
     </p-footer>

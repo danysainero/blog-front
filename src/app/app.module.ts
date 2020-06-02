@@ -2,6 +2,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BackofficeModule } from './_layouts/backoffice/backoffice.module';
@@ -26,6 +28,8 @@ const ROUTES: Routes = [
     AppHomeModule,
     HttpClientModule,
     BackofficeModule,
+    MessagesModule,
+    MessageModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [{

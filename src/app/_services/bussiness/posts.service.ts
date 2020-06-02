@@ -31,13 +31,9 @@ export class PostsService {
   }
 
   createPost(post: Post): Observable<Post> {
+    console.log(post);
     return this.proxy.createPost(this.dtoMapper.adaptPosstToDTO(post)).pipe(
-      map((postResult: PostDTO) => {
-        return {
-          postId: postResult._id,
-          ...post
-        };
-      })
+      map((postResult: PostDTO) => this.dtoMapper.adaptDTOToPost(postResult))
     );
   }
 

@@ -1,9 +1,9 @@
 <nav class="nav">
-
-  <div class="btn-container">
-    <button *ngIf="logged" class="btn" (click)="logout()">Logout</button>
+<div>
+  <div class="btn-container"  *ngIf="(user | async)?.length > 0">
+    <button class="btn" (click)="logout()">Logout</button>
   </div>
-  
+</div>  
   <div class="link-container">
     <a class="nav__link" [routerLink]="['/backoffice/app']"> Backoffice</a>
     <a class="nav__link" [routerLink]="['/home']"> Home</a>

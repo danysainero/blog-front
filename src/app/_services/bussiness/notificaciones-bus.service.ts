@@ -17,7 +17,6 @@ export class NotificacionesBusService {
   }
 
   getNotificacion(): Observable<Notificacion> {
-
     return this.showNotificacionSource.asObservable();
   }
   showError(msg: string, summary?: string) {
