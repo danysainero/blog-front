@@ -1,23 +1,54 @@
+.flex-grid {
+  @media (min-width: 600px) and (max-width: 1000px) {
+    column-count: 2;
+    column-gap: 30px;
+    column-width: 48%;
+    
+  }
+  @media (max-width: 600px){
+    column-count: 1;
+    column-gap: 1px;
+    column-width: 98%;
+    
+  }
+  column-count: 3;
+  column-gap: 30px;
+  column-width: 30%;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  width: calc(100vw - 180px);
+  margin: auto;
+  padding: 20px;
+}
+
 .card {
-  border: solid rgba(114, 114, 114, 0.537) 1px;
-  border-radius: 4px;
+  box-shadow: 4px 4px 10px 0px #60606070; 
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  margin: 20px 40px;
-  padding: 15px 50px;
+  height: fit-content;
+  margin:5px 0 0 20px;
+  padding: 10px;
+  -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+  page-break-inside: avoid; /* Firefox */
+  break-inside: avoid; /* IE 10+ */
+
+  &:hover{
+    box-shadow: 4px 4px 10px 2px #00000070;
+  }
+
 
   &__info {
+    color: rgb(130, 129, 129);
+    font-size: 0.8rem;
     text-align: right;
   }
 
   &__img {
     display: flex;
     justify-content: center;
-
     &__detail {
-      border-radius: 10px;
-      margin: 10px;
-      width: 60%;
+      width: 100%;
     }
   }
 
@@ -29,10 +60,16 @@
     margin: 10px 0;
     text-align: center;
   }
-  
+
+  &__title {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
+    color: rgb(28, 28, 28);
+  }
   &__text {
     font-size: 1rem;
-    text-align: left;
+    margin: 20px 0;
+    text-align: justify;
   }
 
   .btn-container {

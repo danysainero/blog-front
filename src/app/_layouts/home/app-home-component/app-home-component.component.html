@@ -1,4 +1,8 @@
-<p style="text-align: center;">Home layout</p>
-<p style="text-align: center;">↓</p>
 
-  <router-outlet></router-outlet> 
+<div class="home-layout-container">
+<home-layout>
+  <div slot="section"><router-outlet></router-outlet></div>
+  <div slot="footer">Contenido footer</div>
+</home-layout>
+</div>
+

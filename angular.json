@@ -22,12 +22,11 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/themes/nova-colored/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],

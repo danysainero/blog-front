@@ -1,11 +1,16 @@
-<nav class="nav">
-<div>
-  <div class="btn-container"  *ngIf="(user | async)?.length > 0">
-    <button class="btn" (click)="logout()">Logout</button>
+<div class="nav-container">
+  <nav class="nav">
+    <div>
+      <div class="btn-container" *ngIf="(user | async)?.length > 0">
+        <button class="btn" (click)="logout()"><i class="pi pi-power-off"></i></button>
+      </div>
+    </div>
+    <div>
+    <p class="nav__title">Blog Angular</p>
   </div>
-</div>  
-  <div class="link-container">
-    <a class="nav__link" [routerLink]="['/backoffice/app']"> Backoffice</a>
-    <a class="nav__link" [routerLink]="['/home']"> Home</a>
+    <div class="link-container">
+      <a class="nav__link" [routerLink]="['/backoffice/app']"> Backoffice</a>
+      <a class="nav__link" [routerLink]="['/home']"> Home</a>
+    </div>
+  </nav>
   </div>
-</nav>

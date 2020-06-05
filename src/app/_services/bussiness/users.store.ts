@@ -4,19 +4,25 @@ import * as jwt_decode from 'jwt-decode';
 import { tap } from 'rxjs/internal/operators/tap';
 import { User } from 'src/app/_data/user';
 import { AuthService } from 'src/app/_services/bussiness/auth-service.service';
+import { NotificacionesBusService } from './notificaciones-bus.service';
 import { Store } from './store';
 
 @Injectable({ providedIn: 'root' })
 export class UsersStoreService extends Store<User[]>{
 
-    constructor(private authService: AuthService,  private router: Router ) {
+    constructor(private authService: AuthService, private router: Router, private notificacionesBusService: NotificacionesBusService) {
         super();
     }
     init(): void {
-      if (this.get()) { return; }
-      const users = [];
-      return this.store(users);
-     }
+        if (this.get()) { return; }
+        const token = localStorage.getItem('token');
+        if (token) {
+            const users = [];
+            const tokenInfo = jwt_decode(token);
+            const user = Object.assign({}, tokenInfo.body);
+            this.store([...users, user]);
+        }
+    }
 
 
     login$(loginForm): any {
@@ -29,11 +35,13 @@ export class UsersStoreService extends Store<User[]>{
                 this.store([...users, user]);
                 this.router.navigate(['backoffice/app']);
             })
-        ).toPromise();
+        ).toPromise().then().catch(err => {
+            this.notificacionesBusService.showError('fail in login');
+        });
     }
 
-    logout(){
-      this.store([]);
+    logout() {
+        this.store([]);
     }
 
 }

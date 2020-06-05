@@ -12,15 +12,19 @@ import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
 export class PostComponent implements OnInit {
 
   posts$: Observable<Post[]>;
+  randomPic = ['pic-1.png', 'pic-3.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png', 'pic-4.webp', 'pic-5.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png'];
 
   constructor(private router: Router, private store: PostsStoreService) { }
 
   ngOnInit(): void {
     this.store.init();
     this.posts$ = this.store.get$();
+
+
   }
 
-  showPost(id) {
-    this.router.navigate([`home/${id}`]);
+  showPost(id, index) {
+    this.router.navigate([`home/${id}`], {queryParams: {i: index}});
   }
+
 }

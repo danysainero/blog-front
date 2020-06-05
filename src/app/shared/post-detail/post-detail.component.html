@@ -1,21 +1,42 @@
-<p style="text-align: center;">Lista pública de comentarios</p>
-<p style="text-align: center;">↓</p>
+<post-detail [post]="post$ | async">
 
-<div class="card">
+  <div slot="card-img">
+    <img
+      class="card__body__img__detail"
+      src="../../../assets/{{ randomPic[picIndex] }}"
+      alt="dummy image"
+    />
+  </div>
+</post-detail>
+
+<p class="comments__count"  *ngIf="(post$ | async)?.comments.length > 0"> {{(post$ | async)?.comments.length}} Comentarios</p>
+<div class="card__footer" *ngFor="let comment of (post$ | async)?.comments">
+  <post-detail-comments [comments]="comment"></post-detail-comments>
+</div>
+<div class="empty" *ngIf="(post$ | async)?.comments.length <= 0">  
+  <p class="card-comment__text">No hay comentarios</p>
+</div>
+<!-- <div class="card">
+  <div class="card__header">
+    <p class="card__header__info"> Autor:  {{ (post$ | async)?.postAuthorName }} </p>
+  </div>
   <div class="card__body">
-    <p class="card__info"> Autor:  {{ (post$ | async)?.postAuthorName }} </p>
-    <div class="card__img">
-      <img class="card__img__detail" src="../../../assets/rectangle.png" alt="dummy image"/>
+    <p class="card__body__title">{{ (post$ | async)?.postTitle }}</p>
+    <div class="card__body__img">
+      <img class="card__body__img__detail" src="../../../assets/{{randomPic[4]}}" alt="dummy image"/>
     </div>
-    <p class="card__title">Título: {{ (post$ | async)?.postTitle }}</p>
-    <p class="card__text">Contenido: {{ (post$ | async)?.postContent }}</p>
-    <div class="card-comment" *ngFor="let comment of (post$ | async)?.comments">
-      <p class="card-comment__autor">Autor comentario: {{ comment.commentAuthorName }} / {{ comment.createdAt | date: "dd-MM-yyyy" }} </p>
-      <p class="card-comment__text">Contenido comentario: {{ comment.commentContent }}</p>
+   
+    <p class="card__body__text">{{ (post$ | async)?.postContent }}</p>
+  
+  </div>
+  <div class="card__footer">
+   
+    <div class="card__footer__comment" *ngFor="let comment of (post$ | async)?.comments">
+      <p class="card__footer__comment__autor">{{ comment.commentAuthorName }} / {{ comment.createdAt | date: "dd-MM-yyyy" }} </p>
+      <p class="card__footer__comment__text">{{ comment.commentContent }}</p>
     </div>
-    <div class="card-comment empty" *ngIf="(post$ | async)?.comments.length <= 0">  
+    <div class="empty" *ngIf="(post$ | async)?.comments.length <= 0">  
       <p class="card-comment__text">No hay comentarios</p>
     </div>
-
   </div>
-</div>
+</div> -->

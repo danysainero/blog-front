@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^9.1.9",
+    "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.1.4",
     "@angular/compiler": "~9.1.4",
     "@angular/core": "~9.1.4",
@@ -21,7 +22,9 @@
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
     "@briebug/jest-schematic": "^2.1.1",
+    "css-doodle": "^0.8.5",
     "jwt-decode": "^2.2.0",
+    "kurso-stencil": "file:../kurso-stencil",
     "primeflex": "^1.1.1",
     "primeicons": "^4.0.0-rc.2",
     "primeng": "^9.1.0",
