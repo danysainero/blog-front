@@ -4,7 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/_data/post';
+import { User } from 'src/app/_data/user';
 import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
+import { UsersStoreService } from 'src/app/_services/bussiness/users.store';
 
 @Component({
   selector: 'app-post-private',
@@ -24,24 +26,20 @@ export class PostPrivateComponent implements OnInit {
   boxDisplay;
   display = false;
   postToDelete: string;
+  user$: User[];
 
   constructor(
     private router: Router,
+    private usersStore: UsersStoreService,
     private store: PostsStoreService
   ) { }
 
   ngOnInit(): void {
     this.store.init();
     this.posts$ = this.store.get$();
-    this.initializeForms();
-    this.fields = [
-      { field: 'postId', title: 'postId' },
-      { field: 'postAuthorName', title: 'Username' },
-      { field: 'postAuthorNickName', title: 'Nickname' },
-      { field: 'postTitle', title: 'Title' },
-      { field: 'postContent', title: 'postContent' },
-    ];
+    this.usersStore.get$().subscribe(res => this.user$ = res);
 
+    this.initializeForms();
     this.boxDisplay = this.posts$.subscribe(res => res?.map(s => true));
   }
 
@@ -52,10 +50,10 @@ export class PostPrivateComponent implements OnInit {
 
   createPost() {
     this.store.createPost$(this.newPostForm.value);
+    this.displayNewPostForm = !this.displayNewPostForm;
   }
 
   deletePost(id) {
-    
     if (!id) {
       this.store.deletePost$(this.postToDelete);
     } else {
@@ -70,8 +68,8 @@ export class PostPrivateComponent implements OnInit {
   }
 
   savePost(post, i) {
-    const postContent = this.UpdatePostForm.get('postContent').value;
-    const postTitle = this.UpdatePostForm.get('postTitle').value;
+    const postContent = this.UpdatePostForm.get('postContent').value || post.postContent;
+    const postTitle = this.UpdatePostForm.get('postTitle').value || post.postTitle;
 
     if (postContent !== '' && postContent !== null) {
       post.postContent = postContent;
@@ -81,10 +79,10 @@ export class PostPrivateComponent implements OnInit {
     }
     if ((postContent !== '' && postContent !== null) || (postTitle !== '' && postTitle !== null)) {
       this.store.modifyPost$(post.postId, post);
-      this.UpdatePostForm.reset();
-    }
 
+    }
     this.boxDisplay[i] = !this.boxDisplay[i];
+    this.UpdatePostForm.reset();
   }
 
   showDetails(id) {

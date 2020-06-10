@@ -11,6 +11,7 @@ import { AppHomeComponent } from './_layouts/home/app-home-component/app-home-co
 import { AppHomeModule } from './_layouts/home/app-home.module';
 import { AuthInterceptorService } from './_services/bussiness/auth-interceptor.service';
 
+
 const ROUTES: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: AppHomeComponent },

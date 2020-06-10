@@ -1,6 +1,6 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { defineCustomElements } from 'kurso-stencil/loader';
+import { defineCustomElements } from 'blog-stenciljs/loader';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 

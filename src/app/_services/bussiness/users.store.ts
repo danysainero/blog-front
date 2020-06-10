@@ -10,6 +10,7 @@ import { Store } from './store';
 @Injectable({ providedIn: 'root' })
 export class UsersStoreService extends Store<User[]>{
 
+    users = [];
     constructor(private authService: AuthService, private router: Router, private notificacionesBusService: NotificacionesBusService) {
         super();
     }
@@ -17,16 +18,16 @@ export class UsersStoreService extends Store<User[]>{
         if (this.get()) { return; }
         const token = localStorage.getItem('token');
         if (token) {
-            const users = [];
+
             const tokenInfo = jwt_decode(token);
             const user = Object.assign({}, tokenInfo.body);
-            this.store([...users, user]);
+            this.store([...this.users, user]);
         }
     }
 
 
     login$(loginForm): any {
-        this.authService.login(loginForm).pipe(
+        const resService = this.authService.login(loginForm).pipe(
             tap((res) => {
                 const users = this.get();
                 localStorage.setItem('token', res.token);
@@ -35,9 +36,13 @@ export class UsersStoreService extends Store<User[]>{
                 this.store([...users, user]);
                 this.router.navigate(['backoffice/app']);
             })
-        ).toPromise().then().catch(err => {
-            this.notificacionesBusService.showError('fail in login');
-        });
+        ).toPromise()
+            .then()
+            .catch(
+                (err) => {
+                    this.notificacionesBusService.showError('fail in login');
+                }
+            );
     }
 
     logout() {

@@ -17,7 +17,7 @@
       <div class="card-comment" *ngFor="let comment of (post$ | async )?.comments">
         <p  style="text-align: right;"> Autor: {{ comment?.commentAuthorName }}</p>
         <p>Comentario: {{ comment?.commentContent }}</p>
-        <form class="p-formgroup-inline" [formGroup]="modifyCommentForm">
+        <form class="p-formgroup-inline" [formGroup]="modifyCommentForm" *ngIf="user$[0]['role'] == 0 ||  user$[0]['userName'] == comment.commentAuthorName">
           <div class="p-field ui-float-label">
             <input
               type="text"
@@ -26,6 +26,7 @@
               size="150"
               pInputText
               autocomplete="off"
+              required="true"
             />
             <label for="commentContent">modificar comentario</label>
           </div>
@@ -50,7 +51,7 @@
 </div>
 
 <div class="newComment" *ngIf="displayNewPostForm">
-  <form class="ui-fluid p-formgrid p-grid" [formGroup]="newCommentForm">
+  <form class="ui-fluid p-formgrid p-grid" [formGroup]="newCommentForm" (ngSubmit)="createComment()">
     <div class="p-col">
       <label for="commentContent">Nuevo Comentario</label>
       <input
@@ -65,7 +66,6 @@
       <p-button
         label="Create"
         styleClass="ui-button-success"
-        (onClick)="createComment(); "
         [disabled]="!newCommentForm.valid"
       ></p-button>
     </div>
