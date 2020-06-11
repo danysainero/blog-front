@@ -3,17 +3,23 @@
     margin: 10px auto;
     padding: 5px;
   }
-  margin: 10px auto;
+  margin: 100px auto;
   padding: 15px 100px;
 
   .header {
     &__header {
       display: flex;
       justify-content: space-between;
-      * {
-        margin: 5px;
-      }
     }
+  }
+
+  .img-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__img {
+    max-width: 45vh;
   }
 
   .p-formgroup-inline {

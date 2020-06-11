@@ -17,7 +17,6 @@
   column-gap: 30px;
   column-width: 25%;
   width: calc(100vw - 180px);
-  margin: 20px auto;
   padding: 50px 20px;
 }
 
@@ -31,6 +30,7 @@ margin-bottom: 15px;
   display: flex;
   flex-direction: column;
   height: fit-content;
+  margin: 50px 0;
   padding: 10px;
   -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
   page-break-inside: avoid; /* Firefox */
@@ -50,7 +50,8 @@ margin-bottom: 15px;
     display: flex;
     justify-content: center;
     &__detail {
-      width: 100%;
+      width: 60%;
+      margin-top: 20px;
     }
   }
 
