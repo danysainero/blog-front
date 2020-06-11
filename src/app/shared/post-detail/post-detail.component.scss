@@ -1,67 +1,40 @@
-.card {
+.img-container{
   display: flex;
-  flex-direction: column;
-  margin: 20px auto;
-  padding: 15px 50px;
-
-  &__body {
-    padding: 15px;
-  }
-
-  &__info {
-    font-size: 0.6rem;
-    text-align: right;
-  }
-
-  &__img {
-    display: flex;
-    justify-content: center;
-
-    &__detail {
-      border-radius: 10px;
-      margin: 10px;
-      width: 60%;
-    }
-  }
-
-  &__title {
-    font-size: 1.3rem;
-    text-align: center;
-  }
-
-  &__text {
-    color: rgb(124, 124, 124);
-    font-size: 0.8rem;
-    line-height: 1.5;
-    margin: 20px 0;
-    padding-left: 15px;
-  }
+  justify-content: center;
 }
-
-.card-comment {
-  background: #b8b8b824;
-  border-radius: 4px;
-  margin: 10px 0;
-  padding: 0 0 15px 15px;
-  text-align: right;
-
-  &__autor {
-    font-size: 0.6rem;
-    padding: 10px;
+.card__body__img__detail {
+  
+  @media (max-width: 1000px) {
+    max-height: 45vh;
+    margin: 0 auto;
   }
-
-  &__text {
-    color: rgb(58, 58, 58);
-    font-size: 0.8rem;
-    text-align: left;
-  }
+  max-height: 65vh;
 }
 
 .empty {
-  background: #7b3e3e1f;
+  color: whitesmoke;
+  margin: 20px;
   padding: 20px;
 
   & .card-comment__text {
+    background: #232222;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding:25px;
     text-align: center;
   }
 }
+
+
+.card__footer {
+  color: whitesmoke;
+  margin-bottom: 20px;
+  padding: 0 25px;
+}
+
+.comments__count{
+  color: black;
+  padding: 0 50px;
+
+}
+

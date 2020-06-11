@@ -21,7 +21,7 @@ describe('AppLoginComponent', () => {
         {
           path: 'backoffice',
           component: BackofficeDefaultComponent,
-           children: [
+          children: [
             {
               path: 'app',
               component: PostPrivateComponent, canActivate: [GuardsService]
@@ -53,7 +53,8 @@ describe('AppLoginComponent', () => {
   });
 
   it('should login ok', async(() => {
-    const spyProxy = spyOn(authProxy, 'login').and.returnValue(of(FAKE_USERS[0]));
+    const spyProxy = spyOn(authProxy, 'login').and.returnValue(of(FAKE_TOKEN));
+
     component.login();
     expect(spyProxy).toHaveBeenCalled();
   })
@@ -73,3 +74,9 @@ export const FAKE_USERS =
     userName: 'user',
     pass: '$2b$10$ClWBMeKMkyABXq46wEWlOOwDq66R2seAZtQlCEoyxwG2GseZrAd02'
   }];
+
+export const FAKE_TOKEN =
+{
+  message: 'blablabla',
+  token: '$2b$10$r3QBq0nOhhcFVBOKpFsrbehJDBiuyoQIzDqyQQY4/RU.Co2R61qJW',
+};

@@ -1,105 +1,65 @@
 .card {
+  @media (max-width: 700px) {
+    margin: 10px auto;
+    padding: 5px;
+  }
+  margin: 100px auto;
+  padding: 15px 100px;
+
+  .header {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .img-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__img {
+    max-width: 45vh;
+  }
+
+  .p-formgroup-inline {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 5px;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &-comment {
+    background: rgba(0, 0, 0, 0.119);
+    border-radius: 4px;
+    margin-bottom: 7px;
+    padding: 5px;
+  }
+}
+
+.newComment {
+  box-shadow: 0 0 9px 0px #000000b0;
+  background: #f8f8f8;
+  border-radius: 4px;
+  position: fixed;
+  padding: 15px 15px 18px 15px;
+  right: 2%;
+  bottom: 7%;
   display: flex;
   flex-direction: column;
-  margin: 20px auto 120px auto;
-  padding: 15px 50px;
+  width: 95%;
 
-  &__body {
-    padding: 15px;
-  }
-  &__info {
-    font-size: .6rem;
-    text-align: right;
-  }
-  &__img {
-      display: flex;
-      justify-content: center;
-   
-       &__detail{
-         margin: 10px;
-         width: 60%;
-         border-radius: 10px;
-       }
-     }
-  &__title {
-    font-size: 1.3rem;
-    text-align: center;
-  }
-
-  &__text {
-    color: rgb(124, 124, 124);
-    font-size: .8rem;
-    line-height: 1.5;
-    margin: 20px 0;
-    padding-left: 15px;
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
   }
 }
 
-.card-comment {
-  background: #b8b8b824;
-  border-radius: 4px;
-  margin: 10px 0;
-  padding: 0 0 15px 15px;
-  text-align: right;
-
-  &__autor {
-    font-size: 0.6rem;
-    padding: 10px;
-  }
-  &__text {
-    color: rgb(58, 58, 58);
-    font-size: 0.8rem;
-    text-align: left;
-  }
-}
-
-.empty {
-  background: #5830301f;
-  padding: 20px;
-
-  & .card-comment__text {
-    text-align: center;
-  }
-}
-.newpost{
-  form {
-  background: rgb(206, 206, 206);
-  border-radius: 4px;
-  padding: 20px 10px;
-  display: flex;
-  width: 90%;
-  position: fixed;
-  bottom: 2%;
-  right: 5%;
-
-  .formcontrol {
-    width: 100%;
-  }
-  label {
-    text-align: center;
-    display: inline-block;
-    width: 100%;
-  }
-  input {
-    width: 99%;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    padding: 3px;
-  }
-
-  .btn {
-    font-size: 0.9rem;
-    border-radius: 2px;
-    border: none;
-    background: rgba(26, 197, 26, 0.694);
-    padding: 15px;
-  }
-}
-}
-
-
-.btn-new-post {
+.btn-new-comment {
   background: rgb(159, 159, 159);
   border: groove 2px rgb(137, 133, 133);
   border-radius: 50%;

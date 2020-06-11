@@ -52,7 +52,7 @@ describe('CommentsService', () => {
     const spyProxy = spyOn(proxy, 'deleteComment').and.returnValue(of(FAKE_COMMENTS[0]));
     service.deleteComment(FAKE_COMMENTS[0]._id).subscribe(
       (comment: Comment) => {
-        expect(comment.commentId).toEqual(FAKE_COMMENTS[0]._id);
+        expect(comment._id).toEqual(FAKE_COMMENTS[0]._id);
         expect(comment.commentContent).toEqual(FAKE_COMMENTS[0].commentContent);
       }
     );

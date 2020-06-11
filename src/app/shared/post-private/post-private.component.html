@@ -1,52 +1,148 @@
-<p style="text-align: center;">Lista privada de posts</p>
-<p style="text-align: center;">↓</p>
-<div class="card" *ngFor="let post of (posts | async), index as i" id="post{{ i }}">
-  <div class="card__body">
-    <p class="card__info"> {{ post?.postAuthorName }} </p>
-    <div class="card__img">
-      <img class="card__img__detail" src="../../../assets/rectangle.png" alt="dummy image" />
-    </div>
-    <p class="card__title">{{ post?.postTitle }}</p>
-    <p class="card__text">{{ post?.postContent }}</p>
-    <div class="btn-container">
-      <div>
-        <button class="btn btn__delete" (click)="deletePost(post?.postId)"> Delete Post  </button>
+
+<div class="posts-container">
+
+<div *ngIf="!checked">
+<div class="card" *ngFor="let post of posts$ | async; index as i"  id="post{{ i }}" >
+ 
+  <p-dialog [(visible)]="display" [transitionOptions]="'200ms'" [style]="{width: '50vw'}">
+    <p-header>
+     Confirmar borrado
+  </p-header>
+    <p [ngStyle]="{'margin': '10px 0'}"> De verdad quieres borrar el post?</p>
+     <p-footer [ngStyle]="{'display': 'flex', 'justify-content':'space-between'}">
+       <p-button label="Delete"  (click)="deletePost(post?.postId)" styleClass="ui-button-danger"></p-button>
+       <p-button label="Cancel"  styleClass="ui-button-warning" (click)="showDialog()"></p-button>
+  </p-footer>
+  </p-dialog>
+
+<p-card header="{{ post?.postTitle }}" [ngStyle]="{width: '100%'}" styleClass="ui-card-shadow">
+ 
+  <p-header class="header">
+    <div class="header__header">
+      <div *ngIf="user$[0]['role'] == 0 ||  user$[0]['userName'] == post.postAuthorName">
+        <p-button styleClass="ui-button-warning" icon="pi pi-pencil" label="" (click)="modifyPost(i)" [ngStyle]="{'margin':'15px 0 5px 0'}"></p-button>
+        <p-button label="" icon="pi pi-trash"  styleClass="ui-button-danger" (click)="showDialog()"></p-button>
       </div>
-      <div>
-        <button class="btn " (click)="showDetails(post?.postId)">Show Comments</button>
-      </div>
-      <div>
-        <button class="btn btn__modify" (click)="modifyPost($event, i)"> Modify Post </button>
-        <button class="btn btn__save" (click)="savePost($event, i, post?.postId)" style="display: none;"> Save Changes </button>
-        <button class="btn btn__cancel" (click)="cancelPostChanges($event, i)" style="display: none;"> Cancel Changes </button>
-      </div>
-    </div>
+      <p style="text-align: right;">ref: {{ post?.postId }} / Autor: {{ post?.postAuthorName }}</p>
   </div>
+  <div class="img-container">
+      <img class="header__img" src="Card"  src="../../../assets/{{randomPic[i]}}"  (click)="showDetails(post?.postId, i)">
+      </div>
+  </p-header>
+  <div class="post-content" (click)="showDetails(post?.postId)">{{ post?.postContent }}</div>
+ 
+  <p-footer >
+      <form  class="p-formgroup-inline" [formGroup]="UpdatePostForm" *ngIf="boxDisplay[i] == true" (ngSubmit)="savePost(post, i)">
+        <div class="p-field ui-float-label" >
+          <input type="text" formControlName="postTitle" id="postTitle{{ i }}" size="50" pInputText autocomplete="off"/>
+          <label for="postTitle{{ i }}">Título</label>
+        </div>
+        <div class="ui-float-label" >
+          <input
+          formControlName="postContent"
+          name="postContent"
+          id="postContent{{ i }}"
+          size="90" pInputText
+          autocomplete="off"
+          />
+          <label for="postContent{{ i }}">Contenido</label>
+        </div>
+        <div>
+          <p-button styleClass="ui-button-success" label="Save"></p-button>
+        </div>
+      </form>
+  </p-footer>
+</p-card>
+</div>
 </div>
 
-<div class="newpost" *ngIf="displayNewPostForm" [@inOutAnimation]>
-  <div class="formgroup">
-    <form [formGroup]="newPostForm">
-      <div class="formcontrol">
-        <label for="postAuthorName">Autor</label>
-        <input type="text" formControlName="postAuthorName" id="postAuthorName" />
-      </div>
-      <div class="formcontrol">
-        <label for="postAuthorNickName">Nick</label>
-        <input type="text" formControlName="postAuthorNickName" id="postAuthorNickName" />
-      </div>
-      <div class="formcontrol">
+<div class="table-container" *ngIf="checked">
+
+  <p-dialog [(visible)]="display" [transitionOptions]="'200ms'" [style]="{width: '50vw'}">
+    <p-header>
+     Confirmar borrado
+  </p-header>
+    <p [ngStyle]="{'margin': '10px 0'}"> De verdad quieres borrar el post?</p>
+     <p-footer [ngStyle]="{'display': 'flex', 'justify-content':'space-between'}">
+       <p-button label="Delete"  (click)="deletePost()" styleClass="ui-button-danger"></p-button>
+       <p-button label="Cancel"  styleClass="ui-button-warning" (click)="showDialog()"></p-button>
+  </p-footer>
+  </p-dialog>
+
+<p-table [responsive]="true" [value]="(posts$ | async)" dataKey="postId" editMode="row" [style]="{'z-index': '0'}">
+
+  <ng-template pTemplate="header">
+      <tr>
+          <th>postId</th>
+          <th>User</th>
+          <th>Nick</th>
+          <th>Titulo</th>
+          <th>Contenido</th>
+          <th>Methods</th>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="rowData">
+        <td>
+          ...{{rowData.postId | slice:-10:-1}}
+        </td>
+        <td>
+          {{rowData.postAuthorName}}
+        </td>
+        <td>
+          {{rowData.postAuthorNickName}}
+        </td>
+          <td>
+            <p-cellEditor >
+              <ng-template pTemplate="input" >
+                  <textarea [rows]="5" [cols]="10" pInputTextarea autoResize="autoResize"  [(ngModel)]="rowData.postTitle" required [ngStyle]="{'border': 'none' , 'color': 'blue', 'width': '100%'}"></textarea>
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{rowData.postTitle}}
+              </ng-template>
+          </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <textarea [rows]="5" [cols]="10" pInputTextarea autoResize="autoResize" [(ngModel)]="rowData.postContent" required [ngStyle]="{'border': 'none' , 'color': 'blue', 'width': '100%'}"></textarea>
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{rowData.postContent}}
+              </ng-template>
+          </p-cellEditor>
+          </td>
+          <td style="text-align: center;">
+            <div *ngIf="user$[0]['role'] == 0 ||  user$[0]['userName'] == rowData.postAuthorName">
+              <p-button class="table-action-btn" label="" icon="pi pi-trash" (click)="showDialog(rowData.postId)" styleClass="ui-button-danger" [ngStyle]="{'margin-right':'.5em'}"></p-button>
+              <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-warning" style="margin-right: .5em"></button>
+              <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="savePost(rowData, ri)"></button>
+            </div>
+              <p-button class="table-action-btn" label="" icon="pi pi-eye"   (click)="showDetails(rowData.postId)" styleClass="ui-button-secondary"  [ngStyle]="{'margin-right':'.5em'}"  ></p-button>
+            </td>
+      </tr>
+  </ng-template>
+</p-table>
+</div>
+
+
+<div class="newpost" *ngIf="displayNewPostForm">
+    <form class="ui-fluid p-formgrid p-grid" [formGroup]="newPostForm"  (ngSubmit)="createPost()">
+      <div class="p-col">
         <label for="postTitle">Título</label>
-        <input type="text" formControlName="postTitle" id="postTitle" />
+        <input id="postTitle" type="text" pInputText  formControlName="postTitle" autocomplete="off"> 
       </div>
-      <div class="formcontrol">
+      <div class="p-col">
         <label for="postContent">Contenido</label>
-        <textarea class="content" formControlName="postContent" name="postContent" id="postContent"></textarea>
+        <input id="postContent" type="text" pInputText formControlName="postContent"/>
       </div>
       <div class="btn-container">
-        <button class="btn" (click)="createPost(); displayNewPostForm = !displayNewPostForm" [disabled]="!newPostForm.valid" >Create</button>
+        <p-button label="Create" styleClass="ui-button-success"  [disabled]="!newPostForm.valid"></p-button>
       </div>
     </form>
-  </div>
 </div>
-<button class="btn-new-post" (click)="displayNewPostForm = !displayNewPostForm">+</button>
+
+<button pButton type="button" class="btn-float btn-table"  icon="pi pi-table" (click)="checked = !checked"></button>
+<button pButton type="button" class="btn-float btn-new-post" (click)="displayNewPostForm = !displayNewPostForm;" icon="pi pi-plus"></button>
+</div>

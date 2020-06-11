@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
 import { Post } from 'src/app/_data/post';
+import { DtoMapper } from '../../helpers/dto-mapper';
 import { PostDTO } from '../../_data/post-dto';
 import { PostsProxyService } from '../proxys/posts-proxy.service';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
 
-  constructor(private proxy: PostsProxyService) { }
+  constructor(private proxy: PostsProxyService, private dtoMapper: DtoMapper) { }
 
   gelAllPosts(): Observable<Post[]> {
     return this.proxy.getAllPost().pipe(
       map(postsDTO => {
         let posts: Post[] = [];
         postsDTO.map(postDTO => {
-          posts = [...posts, this.adaptDTOToModel(postDTO)];
+          posts = [...posts, this.dtoMapper.adaptDTOToPost(postDTO)];
         });
         return posts;
       })
@@ -26,53 +26,26 @@ export class PostsService {
 
   getPostsById(postId: string): Observable<Post> {
     return this.proxy.getPostsById(postId).pipe(
-      map(postDTO => this.adaptDTOToModel(postDTO))
+      map(postDTO => this.dtoMapper.adaptDTOToPost(postDTO))
     );
   }
 
   createPost(post: Post): Observable<Post> {
-    return this.proxy.createPost(this.adaptModelTODTO(post)).pipe(
-      map((postResult: PostDTO) => {
-        return {
-          postId: postResult._id,
-          ...post
-        };
-      })
+    return this.proxy.createPost(this.dtoMapper.adaptPosstToDTO(post)).pipe(
+      map((postResult: PostDTO) => this.dtoMapper.adaptDTOToPost(postResult))
     );
   }
 
   deletePost(postId: string): Observable<Post> {
     return this.proxy.deletePost(postId).pipe(
-      map(postDTO => this.adaptDTOToModel(postDTO))
+      map(postDTO => this.dtoMapper.adaptDTOToPost(postDTO))
     );
   }
 
   modifyPost(postId: string, modifiedPost): Observable<Post>  {
-    return this.proxy.modifyPost(postId, this.adaptModelTODTO(modifiedPost)).pipe(
-      map(postDTO => this.adaptDTOToModel(postDTO))
+    return this.proxy.modifyPost(postId, this.dtoMapper.adaptPosstToDTO(modifiedPost)).pipe(
+      map(postDTO => this.dtoMapper.adaptDTOToPost(postDTO))
     );
   }
 
-  private adaptDTOToModel(postDTO: PostDTO): Post {
-    return {
-      postId: postDTO._id,
-      postAuthorName: postDTO.postAuthorName,
-      postAuthorNickName: postDTO.postAuthorNickName,
-      postTitle: postDTO.postTitle,
-      postContent: postDTO.postContent,
-      comments: postDTO.comments
-    };
-  }
-
-  private adaptModelTODTO(post: Post): PostDTO {
-    return {
-      _id: post.postId,
-      postAuthorName: post.postAuthorName,
-      postAuthorNickName: post.postAuthorNickName,
-      postTitle: post.postTitle,
-      postContent: post.postContent,
-      comments: post.comments,
-      user: null
-    };
-  }
 }

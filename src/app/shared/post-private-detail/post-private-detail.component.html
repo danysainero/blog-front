@@ -1,45 +1,82 @@
-<p style="text-align: center;">Lista privada de comentarios</p>
-<p style="text-align: center;">↓</p>
-
 <div class="card">
-  <div class="card__body">
-    <p class="card__info">Autor: {{ (post$ | async)?.postAuthorName }}</p>
-    <div class="card__img">
-      <img class="card__img__detail"  src="../../../assets/rectangle.png"  alt="dummy image" />
-    </div>
-    <p class="card__title">Título: {{ (post$ | async)?.postTitle }}</p>
-    <p class="card__text">Contenido: {{ (post$ | async)?.postContent }}</p>
-    <div class="card-comment" *ngFor="let comment of (post$ | async)?.comments">
-      <p class="card-comment__autor">
-        {{ comment?.createdAt | date: "dd-MM-yyyy" }}
-        {{ comment?.commentAuthorName }}
-      </p>
-      <p class="card-comment__text">{{ comment?.commentContent }}</p>
-      <form [formGroup]="modifyCommentForm">
-        <div class="formcontrol">
-          <label for="commentContent">modificar comentario</label>
-          <input type="text" formControlName="commentContent" id="commentContent"/>
-          <button (click)="modifyComment(comment?._id)">Modificar</button>
-        </div>
-      </form>
-      <button (click)="deleteComment(comment?._id)">Eliminar</button>
-    </div>
-    <div class="card-comment empty" *ngIf="(post$ | async)?.comments?.length <= 0">
-      <p class="card-comment__text">No hay comentarios</p>
-    </div>
-  </div>
-</div>
-<div class="newpost" *ngIf="displayNewPostForm">
-  <div class="formgroup">
-    <form [formGroup]="newCommentForm">
-      <div class="formcontrol">
-        <label for="commentContent">Comentario</label>
-        <input type="text" formControlName="commentContent" id="commentContent" />
-        <span *ngIf="newPostError" style="color: crimson;">{{newPostError}}</span>
+  <p-card
+    header="{{ (post$ | async )?.postTitle }}"
+    [style]="{ width: '100%' }"
+    styleClass="ui-card-shadow"
+  >
+    <p-header class="header">
+      <div class="header__header">
+        <p style="text-align: right;">
+        Autor: {{ (post$ | async )?.postAuthorName }}
+        </p>
       </div>
-      <button class="btn" (click)="createComment()" [disabled]="!newCommentForm.valid"> Create </button>
-    </form>
-  </div>
+      <div class="img-container">
+      <img class="header__img"  src="../../../assets/{{randomPic[picIndex]}}"  />
+    </div>
+    </p-header>
+    <div class="post-content">{{ (post$ | async )?.postContent }}</div>
+    <p-footer>
+      <div class="card-comment" *ngFor="let comment of (post$ | async )?.comments">
+        <p  style="text-align: right;"> Autor: {{ comment?.commentAuthorName }}</p>
+        <p>Comentario: {{ comment?.commentContent }}</p>
+        <form class="p-formgroup-inline" [formGroup]="modifyCommentForm" *ngIf="user$[0]['role'] == 0 ||  user$[0]['userName'] == comment.commentAuthorName">
+          <div class="p-field ui-float-label">
+            <input
+              type="text"
+              formControlName="commentContent"
+              id="commentContent"
+              size="150"
+              pInputText
+              autocomplete="off"
+              required="true"
+            />
+            <label for="commentContent">modificar comentario</label>
+          </div>
+          <p-button
+          styleClass="ui-button-danger"
+          label="Delete"
+          (click)="deleteComment(comment?._id)"
+        ></p-button>
+          <p-button
+            styleClass="ui-button-warning"
+            label="Update"
+            (click)="modifyComment(comment?._id, comment)"
+          ></p-button>
+        </form>
+      
+      </div>
+      <div class="card-comment empty" *ngIf="(post$ | async )?.comments.length <= 0">
+        <p class="card-comment__text">No hay comentarios</p>
+      </div>
+    </p-footer>
+  </p-card>
 </div>
 
-<button class="btn-new-post" (click)="displayNewPostForm = !displayNewPostForm">+</button>
+<div class="newComment" *ngIf="displayNewPostForm">
+  <form class="ui-fluid p-formgrid p-grid" [formGroup]="newCommentForm" (ngSubmit)="createComment()">
+    <div class="p-col">
+      <label for="commentContent">Nuevo Comentario</label>
+      <input
+        id="commentContent"
+        type="text"
+        pInputText
+        formControlName="commentContent"
+        autocomplete="off"
+      />
+    </div>
+    <div class="btn-container">
+      <p-button
+        label="Create"
+        styleClass="ui-button-success"
+        [disabled]="!newCommentForm.valid"
+      ></p-button>
+    </div>
+  </form>
+</div>
+
+<button
+  class="btn-new-comment"
+  (click)="displayNewPostForm = !displayNewPostForm"
+>
+  +
+</button>

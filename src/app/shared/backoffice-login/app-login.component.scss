@@ -1,65 +1,86 @@
-.link{
-    color: rgb(109, 138, 177);
+
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 70vh;
+}
+
+.formgroup {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    @media (max-width: 700px) { 
+      padding: 20px;
+      width: 90vw;
+     }
+    background: rgb(51, 51, 51);
+    border: solid 0.8px rgba(197, 170, 226, 0.863);
+    border-radius: 8px;
+    color: rgb(221, 221, 221);
+    font-size: 1.4rem;
+    padding: 70px;
+    width: 40vw;
+  }
+
+  & h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .link {
+    color: rgb(163, 197, 240);
     cursor: pointer;
     display: inline-block;
-    font-size: .8rem;
-    margin: 20px 0; 
-    padding: 5px 15px;
-}
-.login {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 80vh;
+    font-size: .9rem;
+    padding: 4px;
+    text-align: center;
+    width: 100%;
+  }
 
-}
-.formgroup {
-    
+  .formcontrol {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%; 
+    justify-content: center;
   
-    & H1{
-        text-align: center;
-        margin: 0 0 20px 0 ;
+    & label {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 3px;
+    }
+  
+    & input {
+      font-size: 1rem;
+      height: 30px;
+      margin-bottom: 25px;
+      padding: 3px;
     }
   }
   
-  .formcontrol{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      & label{
-      display: block;
-      font-size: .8rem;
-      margin-bottom: 3px;
-      }
-  
-      & input {
-          font-size: .6rem;
-          margin-bottom: 10px;
-  padding: 3px;
-      }
+  .btn-container {
+    display: flex;
+    justify-content: center;
   }
   
-  .btn-container{
-      display: flex;
-      justify-content: center;
+  .btn {
+    background: #6de877b3;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 20px 0;
+  padding: 7px 14px;
+    &:hover {
+      background: #58c461b3;
+    }
   }
-  
-  .btn{
-      background: #6de877b3;
-      border-radius: 2px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.7rem;
-      margin: 10px 0;
-  
-      &:hover{
-          background: #58c461b3;
-      }
-  } 
+}
+
+
 
 /* .login {
     display: flex;

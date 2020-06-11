@@ -1,123 +1,188 @@
-.btn-new-post {
-  background: rgb(159, 159, 159);
-  border: groove 2px rgb(137, 133, 133);
-  border-radius: 50%;
-  bottom: 5%;
-  height: 30px;
-  position: fixed;
-  right: 1%;
-  width: 30px;
+
+.posts-container{
+  margin-top: 100px;
 }
-
 .card {
-  display: flex;
-  flex-direction: column;
-  margin: 20px auto;
-  padding: 15px 50px;
-  &__body {
-    border: solid rgba(114, 114, 114, 0.537) 1px;
-    border-radius: 4px;
-    padding: 15px;
+  @media (max-width: 700px) {
+    padding: 10px;
   }
+  margin: 10px auto;
+  padding: 15px 100px;
 
-  &__info {
-    font-size: 0.8rem;
-    text-align: right;
-  }
-  &__img {
-    display: flex;
-    justify-content: center;
+  .header {
+    &__header {
+      @media (max-width: 700px) {
+        flex-direction: column;
+        text-align: center;
+      }
+      display: flex;
+      justify-content: space-between;
+      * {
+        margin: 5px;
+      }
+    }
 
-    &__detail {
-      margin: 10px;
-      width: 60%;
-      border-radius: 10px;
+    .img-container{
+      display: flex;
+      justify-content: center;
+    }
+    &__img {
+      
+      max-height: 45vh;
+      cursor: pointer;
+      width: auto;
     }
   }
 
-  &__title,
-  &__text {
-    color: rgb(72, 72, 72);
-    font-family: roboto;
-    font-size: 1.3rem;
-    margin: 10px 0;
-    text-align: center;
+  .post-content {
+    cursor: pointer;
   }
 
-  &__text {
-    font-size: 1rem;
-    text-align: justify;
-  }
-
-  .btn-container {
+  .p-formgroup-inline {
+    background: rgba(0, 0, 0, 0.119);
+    border-radius: 4px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: space-around;
+    padding: 20px 5px;
   }
+}
+.btn-float{
+  @media (max-width: 700px) {
+    right: 5%;
+  }
+  border: groove 2px rgb(137, 133, 133);
+  border-radius: 50%;
+  bottom: 5%;
+  height: 35px;
+  position: fixed;
+  right: 1%;
+  width: 35px;
+}
+.btn-new-post {
+  background: rgb(159, 159, 159);
+}
 
-  .btn {
-    align-self: flex-end;
-    border-radius: 2px;
-    font-size: 0.7rem;
+.btn-table{
+  @media (max-width: 700px) {
+    bottom: 11%;
   }
-  .btn__comment {
-    background: rgb(180, 180, 180);
-  }
-
-  .btn__delete {
-    background: rgb(255, 140, 140);
-  }
-
-  .btn__modify {
-    background: rgb(135, 169, 242);
-  }
-
-  .btn__save {
-    background: rgb(135, 242, 169);
-  }
-
-  .btn__cancel {
-    background: rgb(242, 199, 135);
-    align-self: flex-end;
-    border-radius: 2px;
-    font-size: 0.7rem;
-  }
+  background: rgb(69, 76, 255);
+  bottom: 10%;
 }
 
 .newpost {
-  border: groove 2px rgb(137, 133, 133);
-  background: rgb(223, 221, 221);
+  @media (max-width: 700px) {
+    bottom: 15%;
+  }
+  background: #f8f8f8;
   border-radius: 4px;
+  bottom: 5%;
+  box-shadow: 0 0 9px 0px #000000b0;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 15px 18px 15px;
   position: fixed;
-  padding: 5px 15px;
-  right: 2%;
-  bottom: 7%;
-  display: flex;
-  flex-direction: column;
-}
+  right: 4%;
+  width: 95%;
 
-.formcontrol {
-  display: flex;
-  flex-direction: column;
-
-  & label {
-    font-size: 0.9rem;
-    margin-bottom: 2px;
-  }
-
-  & input,
-  .content {
-    font-size: 0.7rem;
-    border: none;
-    border-radius: 2px;
-    height: 20px;
-    margin-bottom: 2px;
-    padding: 3px;
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
   }
 }
 
-.btn-container {
+.btn-container{
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin: 15px 0;
+
+  p-button{
+      margin: 0 10px;
+  }
+}
+
+.table-container{
+  @media (max-width: 700px) {
+    padding: 10px;
+    text-align: center;
+  }
+  padding: 0 60px;
+  margin-bottom: 20px;
+}
+
+#table-action-btn{
+text-align: center;
+
+p-button{
+  margin: 0 10px;
+}
+}
+
+
+
+/* Column Priorities */
+@media only all {
+  th.ui-p-6,
+  td.ui-p-6,
+  th.ui-p-5,
+  td.ui-p-5,
+  th.ui-p-4,
+  td.ui-p-4,
+  th.ui-p-3,
+  td.ui-p-3,
+  th.ui-p-2,
+  td.ui-p-2,
+  th.ui-p-1,
+  td.ui-p-1 {
+      display: none;
+  }
+}
+
+/* Show priority 1 at 320px (20em x 16px) */
+@media screen and (min-width: 20em) {
+  th.ui-p-1,
+  td.ui-p-1 {
+      display: table-cell;
+  }
+}
+
+/* Show priority 2 at 480px (30em x 16px) */
+@media screen and (min-width: 30em) {
+  th.ui-p-2,
+  td.ui-p-2 {
+      display: table-cell;
+  }
+}
+
+/* Show priority 3 at 640px (40em x 16px) */
+@media screen and (min-width: 40em) {
+  th.ui-p-3,
+  td.ui-p-3 {
+      display: table-cell;
+  }
+}
+
+/* Show priority 4 at 800px (50em x 16px) */
+@media screen and (min-width: 50em) {
+  th.ui-p-4,
+  td.ui-p-4 {
+      display: table-cell;
+  }
+}
+
+/* Show priority 5 at 960px (60em x 16px) */
+@media screen and (min-width: 60em) {
+  th.ui-p-5,
+  td.ui-p-5 {
+      display: table-cell;
+  }
+}
+
+/* Show priority 6 at 1,120px (70em x 16px) */
+@media screen and (min-width: 70em) {
+  th.ui-p-6,
+  td.ui-p-6 {
+      display: table-cell;
+  }
 }

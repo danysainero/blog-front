@@ -1,36 +1,58 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Observable } from 'rxjs';
 import { Post } from 'src/app/_data/post';
-import { PostsService } from 'src/app/_services/bussiness/posts.service';
-import { CommentsService } from '../../_services/bussiness/comments.service';
+import { User } from 'src/app/_data/user';
+import { PostStore } from '../../_services/bussiness/post-store';
+import { UsersStoreService } from './../../_services/bussiness/users.store';
 
 @Component({
   selector: 'app-post-private-detail',
   templateUrl: './post-private-detail.component.html',
   styleUrls: ['./post-private-detail.component.scss']
 })
-export class PostPrivateDetailComponent implements OnInit, OnDestroy {
+export class PostPrivateDetailComponent implements OnInit {
 
   modifyCommentForm: FormGroup;
   newCommentForm: FormGroup;
   post$: Observable<Post>;
   displayNewPostForm = false;
-  createCommentSub: Subscription;
-  modifyCommentSub: Subscription;
-  deleteCommentSub: Subscription;
-  newPostError: object;
+  foo: any;
+  user$: User[];
+  randomPic = ['pic-1.png', 'pic-3.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png', 'pic-4.webp', 'pic-5.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png'];
+  picIndex: number;
 
   constructor(
-    private postsService: PostsService,
-    private commentsService: CommentsService,
+    private postStore: PostStore,
+    private usersStore: UsersStoreService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getPostByID();
+    this.postStore.init(this.route.snapshot.params.id);
+    this.post$ = this.postStore.get$();
+    this.usersStore.get$().subscribe(res => this.user$ = res);
+    this.picIndex = this.route.snapshot.queryParams.i;
     this.initializeForms();
+  }
+
+  createComment() {
+    this.postStore.addComment$(this.route.snapshot.params.id, this.newCommentForm.value);
+    this.displayNewPostForm = !this.displayNewPostForm;
+  }
+
+  deleteComment(commentId) {
+    this.postStore.deleteComment$(commentId);
+  }
+
+  modifyComment(commentId, comment) {
+    const commentContent = this.modifyCommentForm.get('commentContent').value;
+
+    if (commentContent !== '') {
+      comment.commentContent = commentContent;
+      this.postStore.modifyComment$(commentId, comment);
+      this.modifyCommentForm.reset();
+    }
 
   }
 
@@ -42,42 +64,6 @@ export class PostPrivateDetailComponent implements OnInit, OnDestroy {
     this.modifyCommentForm = new FormGroup({
       commentContent: new FormControl('', [Validators.required])
     });
-  }
-
-  getPostByID() {
-    const postUrlId = this.route.snapshot.params.id;
-    this.post$ = this.postsService.getPostsById(postUrlId);
-  }
-
-  createComment() {
-    const postUrlId = this.route.snapshot.params.id;
-    this.createCommentSub = this.commentsService.createComment(postUrlId, this.newCommentForm.value).subscribe(() => {
-      this.displayNewPostForm = !this.displayNewPostForm;
-    },
-      (error) => {
-        this.newPostError = error.error.message;
-      }
-    );
-  }
-
-  modifyComment(commentId) {
-    this.modifyCommentSub = this.commentsService.modifyComment(commentId, this.modifyCommentForm.value).subscribe(
-      (res) => res,
-      (error) => console.log(error.statusText)
-    );
-  }
-
-  deleteComment(commentId) {
-    this.deleteCommentSub = this.commentsService.deleteComment(commentId).subscribe(
-      (res) => res,
-      (error) => console.log(error.statusText)
-    );
-  }
-
-  ngOnDestroy() {
-    if (this.createCommentSub) { this.createCommentSub.unsubscribe(); }
-    if (this.modifyCommentSub) { this.modifyCommentSub.unsubscribe(); }
-    if (this.deleteCommentSub) { this.deleteCommentSub.unsubscribe(); }
   }
 
 }

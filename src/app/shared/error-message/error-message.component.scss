@@ -1,0 +1,14 @@
+.error-container{
+    position: relative;
+}
+
+.async-pending, .async-error{
+    bottom: 0;
+    color: tomato;
+    font-size: .8rem;
+    position: absolute;
+}
+
+.async-pending{
+    color: wheat;
+}

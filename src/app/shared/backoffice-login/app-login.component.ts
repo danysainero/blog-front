@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonValidator } from 'src/app/helpers/common-validator';
-import { Token } from 'src/app/_data/token';
 import { AuthService } from 'src/app/_services/bussiness/auth-service.service';
+import { NotificacionesBusService } from 'src/app/_services/bussiness/notificaciones-bus.service';
+import { UsersStoreService } from 'src/app/_services/bussiness/users.store';
 import { AuthProxyService } from 'src/app/_services/proxys/auth-proxy.service';
 
 @Component({
@@ -16,15 +17,43 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
-  subLogin: Subscription;
   subRegister: Subscription;
   showLogin: boolean;
+  user: any;
+  tokenInfo: any;
+  usernameErrorsMessages;
 
-  constructor(private authService: AuthService, private authProxyService: AuthProxyService, private router: Router) { }
+  // tslint:disable-next-line: max-line-length
+  constructor(
+    private userStore: UsersStoreService,
+    private authService: AuthService,
+    private notificacionesBusService: NotificacionesBusService,
+    private authProxyService: AuthProxyService,
+    private router: Router,
+    private ngZone: NgZone) { }
 
   ngOnInit(): void {
+
     this.showLogin = true;
     this.initializeForms();
+
+    this.usernameErrorsMessages = {
+      required: 'El username es requerido',
+      userTaken: 'Username is taken',
+      minlength: 'Sorry, this field is too short',
+      startWithNumber: 'El username no puede empezar por número'
+      };
+  }
+
+  login(): void {
+    this.userStore.login$(this.loginForm.value);
+  }
+
+  register(): void {
+    this.subRegister = this.authService.register(this.registerForm.value).subscribe(() => {
+      this.showLogin = !this.showLogin;
+    },
+      (error) => console.log(error.statusText += ' : Usuario ya existe'));
   }
 
   initializeForms(): void {
@@ -35,36 +64,12 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
     this.registerForm = new FormGroup({
       userName: new FormControl('', [Validators.required], [CommonValidator.userTaken]),
-      pass: new FormControl('', [Validators.required]),
+      pass: new FormControl('', [Validators.required, Validators.minLength(4)]),
       role: new FormControl(1)
     });
   }
 
-  register(): void {
-    this.subRegister = this.authService.register(this.registerForm.value).subscribe(res => {
-      console.log(`User ${res.UserUserName} created`);
-      if (res) {
-        this.registerForm.reset();
-      }
-      this.showLogin = !this.showLogin;
-    },
-      (error) => console.log(error.statusText += ' : Usuario ya existe'));
-  }
-
-  login(): void {
-    this.authService.login(this.loginForm.value).subscribe(
-      (token: Token) => {
-        localStorage.setItem('token', token.token);
-        this.router.navigate(['backoffice/app']);
-      },
-      (error) => console.log(error.statusText = 'fail in login')
-    );
-
-  }
-
-
   ngOnDestroy(): void {
-    if (this.subLogin) { this.subLogin.unsubscribe(); }
     if (this.subRegister) { this.subRegister.unsubscribe(); }
   }
 }

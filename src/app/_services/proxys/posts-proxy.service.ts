@@ -25,9 +25,8 @@ export class PostsProxyService {
     return this.httpClient.post<PostDTO>(this.url, post);
   }
 
-  modifyPost(postId: string, postToModify): Observable<PostDTO> {
-    postToModify._id = postId;
-    return this.httpClient.put<PostDTO>(`${this.url}/${postId}`, postToModify);
+  modifyPost(postId: string, post): Observable<PostDTO> {
+    return this.httpClient.put<PostDTO>(`${this.url}/${postId}`, post);
   }
 
   deletePost(postId: string): Observable<PostDTO> {
