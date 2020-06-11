@@ -1,9 +1,18 @@
+.img-container{
+  display: flex;
+  justify-content: center;
+}
 .card__body__img__detail {
+  
+  @media (max-width: 1000px) {
+    max-height: 45vh;
+    margin: 0 auto;
+  }
   max-height: 65vh;
 }
 
 .empty {
-    color: whitesmoke;
+  color: whitesmoke;
   margin: 20px;
   padding: 20px;
 
@@ -16,11 +25,6 @@
   }
 }
 
-
-.card {
-  padding: 25px 50px 15px 50px;
-  margin-bottom: 10vh;
-}
 
 .card__footer {
   color: whitesmoke;

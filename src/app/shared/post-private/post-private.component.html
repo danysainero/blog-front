@@ -25,7 +25,9 @@
       </div>
       <p style="text-align: right;">ref: {{ post?.postId }} / Autor: {{ post?.postAuthorName }}</p>
   </div>
-      <img class="header__img" src="Card"  src="../../../assets/rectangle.png"  (click)="showDetails(post?.postId)">
+  <div class="img-container">
+      <img class="header__img" src="Card"  src="../../../assets/{{randomPic[i]}}"  (click)="showDetails(post?.postId, i)">
+      </div>
   </p-header>
   <div class="post-content" (click)="showDetails(post?.postId)">{{ post?.postContent }}</div>
  

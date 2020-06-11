@@ -18,32 +18,32 @@
           Login
         </button>
       </div>
-      <span (click)="this.showLogin = !this.showLogin" class="link">No estás registrado? Regístrate</span>
+      <span (click)="this.showLogin = !this.showLogin" class="link">¿No estás registrado? Regístrate</span>
     </form>
   </div>
 
   <div class="formgroup" *ngIf="!showLogin">
-    <form [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <h1>SIGN UP</h1>
       <div class="formcontrol">
         <label for="userName"> Username</label>
-        <input type="text" formControlName="userName" id="userName" />
+        <input type="text" formControlName="userName" id="userName" autocomplete="off" />
           <div *ngIf="registerForm.get('userName').dirty">
-          <span *ngIf="registerForm.get('userName').hasError('userTaken')" style="color: crimson;">
-              Username is taken
-          </span>
-      </div>
+          <app-error-message [control]="registerForm.get('userName')" [customErrors]="usernameErrorsMessages"> </app-error-message>
+        </div>
       </div>
 
       <div class="formcontrol">
         <label for="pass"> Password </label>
-        <input type="pass" formControlName="pass" id="pass" />
+        <input type="pass" formControlName="pass" id="pass" autocomplete="off" />
+        <div *ngIf="registerForm.get('pass').dirty">
+        <app-error-message [control]="registerForm.get('pass')" [customErrors]="usernameErrorsMessages"> </app-error-message>
+      </div>
       </div>
 
       <div class="btn-container">
         <button
           class="btn"
-          (click)="register()"
           [disabled]="!registerForm.valid"
         >
           New Account

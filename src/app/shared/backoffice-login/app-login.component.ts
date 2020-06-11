@@ -17,11 +17,11 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
-  subLogin: Subscription;
   subRegister: Subscription;
   showLogin: boolean;
   user: any;
   tokenInfo: any;
+  usernameErrorsMessages;
 
   // tslint:disable-next-line: max-line-length
   constructor(
@@ -36,9 +36,14 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
     this.showLogin = true;
     this.initializeForms();
+
+    this.usernameErrorsMessages = {
+      required: 'El username es requerido',
+      userTaken: 'Username is taken',
+      minlength: 'Sorry, this field is too short',
+      startWithNumber: 'El username no puede empezar por número'
+      };
   }
-
-
 
   login(): void {
     this.userStore.login$(this.loginForm.value);
@@ -59,13 +64,12 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
     this.registerForm = new FormGroup({
       userName: new FormControl('', [Validators.required], [CommonValidator.userTaken]),
-      pass: new FormControl('', [Validators.required]),
+      pass: new FormControl('', [Validators.required, Validators.minLength(4)]),
       role: new FormControl(1)
     });
   }
 
   ngOnDestroy(): void {
-    if (this.subLogin) { this.subLogin.unsubscribe(); }
     if (this.subRegister) { this.subRegister.unsubscribe(); }
   }
 }

@@ -1,0 +1,8 @@
+<div class="error-container"><p class="async-pending" *ngIf="control.pending">
+  Comprobando...
+</p></div>
+<div class="error-container" *ngIf="errorMessage !== null">
+  <ul>
+    <li class="async-error">{{ errorMessage }}</li>
+  </ul>
+</div>

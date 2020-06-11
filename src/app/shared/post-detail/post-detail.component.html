@@ -1,6 +1,5 @@
 <post-detail [post]="post$ | async">
-
-  <div slot="card-img">
+  <div slot="card-img" class="img-container">
     <img
       class="card__body__img__detail"
       src="../../../assets/{{ randomPic[picIndex] }}"
@@ -16,27 +15,3 @@
 <div class="empty" *ngIf="(post$ | async)?.comments.length <= 0">  
   <p class="card-comment__text">No hay comentarios</p>
 </div>
-<!-- <div class="card">
-  <div class="card__header">
-    <p class="card__header__info"> Autor:  {{ (post$ | async)?.postAuthorName }} </p>
-  </div>
-  <div class="card__body">
-    <p class="card__body__title">{{ (post$ | async)?.postTitle }}</p>
-    <div class="card__body__img">
-      <img class="card__body__img__detail" src="../../../assets/{{randomPic[4]}}" alt="dummy image"/>
-    </div>
-   
-    <p class="card__body__text">{{ (post$ | async)?.postContent }}</p>
-  
-  </div>
-  <div class="card__footer">
-   
-    <div class="card__footer__comment" *ngFor="let comment of (post$ | async)?.comments">
-      <p class="card__footer__comment__autor">{{ comment.commentAuthorName }} / {{ comment.createdAt | date: "dd-MM-yyyy" }} </p>
-      <p class="card__footer__comment__text">{{ comment.commentContent }}</p>
-    </div>
-    <div class="empty" *ngIf="(post$ | async)?.comments.length <= 0">  
-      <p class="card-comment__text">No hay comentarios</p>
-    </div>
-  </div>
-</div> -->

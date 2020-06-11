@@ -11,14 +11,19 @@ import { Store } from './store';
 export class UsersStoreService extends Store<User[]>{
 
     users = [];
-    constructor(private authService: AuthService, private router: Router, private notificacionesBusService: NotificacionesBusService) {
+
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private notificacionesBusService:
+        NotificacionesBusService) {
         super();
     }
+
     init(): void {
-        if (this.get()) { return; }
+
         const token = localStorage.getItem('token');
         if (token) {
-
             const tokenInfo = jwt_decode(token);
             const user = Object.assign({}, tokenInfo.body);
             this.store([...this.users, user]);
@@ -27,19 +32,19 @@ export class UsersStoreService extends Store<User[]>{
 
 
     login$(loginForm): any {
-        const resService = this.authService.login(loginForm).pipe(
+        this.authService.login(loginForm).pipe(
             tap((res) => {
-                const users = this.get();
                 localStorage.setItem('token', res.token);
                 const tokenInfo = jwt_decode(res.token);
                 const user = Object.assign({}, tokenInfo.body);
-                this.store([...users, user]);
+                this.store([...this.users, user]);
                 this.router.navigate(['backoffice/app']);
             })
         ).toPromise()
             .then()
             .catch(
                 (err) => {
+                    console.log(err);
                     this.notificacionesBusService.showError('fail in login');
                 }
             );

@@ -1,4 +1,8 @@
 .card {
+  @media (max-width: 700px) {
+    margin: 10px auto;
+    padding: 5px;
+  }
   margin: 10px auto;
   padding: 15px 100px;
 

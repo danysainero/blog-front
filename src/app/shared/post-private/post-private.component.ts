@@ -27,7 +27,7 @@ export class PostPrivateComponent implements OnInit {
   display = false;
   postToDelete: string;
   user$: User[];
-
+  randomPic = ['pic-1.png', 'pic-3.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png', 'pic-4.webp', 'pic-5.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png'];
   constructor(
     private router: Router,
     private usersStore: UsersStoreService,
@@ -85,8 +85,8 @@ export class PostPrivateComponent implements OnInit {
     this.UpdatePostForm.reset();
   }
 
-  showDetails(id) {
-    this.router.navigate([`backoffice/app/${id}`]);
+  showDetails(id, index) {
+    this.router.navigate([`backoffice/app/${id}`], {queryParams: {i: index}});
   }
 
   initializeForms() {

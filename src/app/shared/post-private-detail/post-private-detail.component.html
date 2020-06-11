@@ -10,7 +10,7 @@
         Autor: {{ (post$ | async )?.postAuthorName }}
         </p>
       </div>
-      <img class="header__img" src="Card" src="../../../assets/rectangle.png" />
+      <img class="header__img" src="Card"  src="../../../assets/{{randomPic[picIndex]}}"  />
     </p-header>
     <div class="post-content">{{ (post$ | async )?.postContent }}</div>
     <p-footer>

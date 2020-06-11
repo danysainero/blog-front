@@ -9,25 +9,28 @@
     column-count: 1;
     column-gap: 1px;
     column-width: 98%;
-    
+    padding: 10px;
+    width: calc(100vw - 20px);
   }
+
   column-count: 3;
   column-gap: 30px;
-  column-width: 30%;
-  flex-wrap: wrap;
-  overflow-wrap: break-word;
+  column-width: 25%;
   width: calc(100vw - 180px);
-  margin: auto;
-  padding: 20px;
+  margin: 20px auto;
+  padding: 50px 20px;
 }
 
 .card {
+  @media (max-width: 1000px){
+margin-bottom: 15px;
+  }
+  border: 0.5px solid rgba(99, 99, 99, 0.404);
   box-shadow: 4px 4px 10px 0px #60606070; 
   cursor: pointer;
   display: flex;
   flex-direction: column;
   height: fit-content;
-  margin:5px 0 0 20px;
   padding: 10px;
   -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
   page-break-inside: avoid; /* Firefox */
@@ -36,7 +39,6 @@
   &:hover{
     box-shadow: 4px 4px 10px 2px #00000070;
   }
-
 
   &__info {
     color: rgb(130, 129, 129);

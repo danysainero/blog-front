@@ -1,7 +1,4 @@
-
-
-
-<div *ngIf=" (posts$ | async)?.length > 0; else noPosts" ></div>
+<div *ngIf=" (posts$ | async)?.length > 0; else noPosts" >
 
 <div class="flex-grid">
 <div class="card" *ngFor="let post of posts$ | async; index as i" >
@@ -13,6 +10,7 @@
     <p class="card__title"> {{ post?.postTitle }}</p>
     <p class="card__text">{{ post?.postContent }}</p>
   </div>
+</div>
 </div>
 </div>
 <ng-template #noPosts>

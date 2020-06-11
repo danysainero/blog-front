@@ -20,6 +20,9 @@ export class PostPrivateDetailComponent implements OnInit {
   displayNewPostForm = false;
   foo: any;
   user$: User[];
+  randomPic = ['pic-1.png', 'pic-3.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png', 'pic-4.webp', 'pic-5.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png'];
+  picIndex: number;
+
   constructor(
     private postStore: PostStore,
     private usersStore: UsersStoreService,
@@ -29,7 +32,7 @@ export class PostPrivateDetailComponent implements OnInit {
     this.postStore.init(this.route.snapshot.params.id);
     this.post$ = this.postStore.get$();
     this.usersStore.get$().subscribe(res => this.user$ = res);
-
+    this.picIndex = this.route.snapshot.queryParams.i;
     this.initializeForms();
   }
 
