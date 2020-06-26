@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { Post } from 'src/app/_data/post';
 import { PostsStoreService } from 'src/app/_services/bussiness/posts.store';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',

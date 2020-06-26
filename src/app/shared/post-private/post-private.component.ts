@@ -28,6 +28,7 @@ export class PostPrivateComponent implements OnInit {
   postToDelete: string;
   user$: User[];
   randomPic = ['pic-1.png', 'pic-3.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png', 'pic-4.webp', 'pic-5.png', 'pic-4.webp', 'pic-2.png' , 'pic-5.png', 'pic-3.png'];
+  
   constructor(
     private router: Router,
     private usersStore: UsersStoreService,
@@ -40,6 +41,7 @@ export class PostPrivateComponent implements OnInit {
     this.usersStore.get$().subscribe(res => this.user$ = res);
 
     this.initializeForms();
+    
     this.boxDisplay = this.posts$.subscribe(res => res?.map(s => true));
   }
 

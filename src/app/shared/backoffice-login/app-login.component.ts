@@ -19,11 +19,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   subRegister: Subscription;
   showLogin: boolean;
-  user: any;
-  tokenInfo: any;
   usernameErrorsMessages;
 
-  // tslint:disable-next-line: max-line-length
   constructor(
     private userStore: UsersStoreService,
     private authService: AuthService,
@@ -34,9 +31,9 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.showLogin = true;
     this.initializeForms();
-
+    this.showLogin = true;
+   
     this.usernameErrorsMessages = {
       required: 'El username es requerido',
       userTaken: 'Username is taken',

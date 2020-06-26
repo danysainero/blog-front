@@ -16,6 +16,7 @@ export class PostDetailComponent implements OnInit {
   postUrlId: string;
   randomPic: string[] = ['pic-1.png', 'pic-3.png', 'pic-4.webp', 'pic-2.png', 'pic-5.png', 'pic-3.png', 'pic-4.webp', 'pic-5.png', 'pic-4.webp', 'pic-2.png', 'pic-5.png', 'pic-3.png'];
   picIndex: number;
+  
   constructor(private postsService: PostsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {

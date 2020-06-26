@@ -1,17 +1,23 @@
-<post-detail [post]="post$ | async">
+<post-detail
+  [postAuthorName]="(post$ | async)?.postAuthorName"
+  [postTitle]="(post$ | async)?.postTitle"
+  [postContent]="(post$ | async)?.postContent"
+>
   <div slot="card-img" class="img-container">
     <img
       class="card__body__img__detail"
-      src="../../../assets/{{ randomPic[picIndex] }}"
+      src="../../../assets/pic-2.png"
       alt="dummy image"
     />
   </div>
 </post-detail>
 
-<p class="comments__count"  *ngIf="(post$ | async)?.comments.length > 0"> {{(post$ | async)?.comments.length}} Comentarios</p>
+<p class="comments__count" *ngIf="(post$ | async)?.comments.length > 0">
+  {{ (post$ | async)?.comments.length }} Comentarios
+</p>
 <div class="card__footer" *ngFor="let comment of (post$ | async)?.comments">
   <post-detail-comments [comments]="comment"></post-detail-comments>
 </div>
-<div class="empty" *ngIf="(post$ | async)?.comments.length <= 0">  
+<div class="empty" *ngIf="(post$ | async)?.comments.length <= 0">
   <p class="card-comment__text">No hay comentarios</p>
 </div>
